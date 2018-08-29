@@ -1,0 +1,446 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+</head>
+<body>
+    <script>
+        //1、中等
+        let f = function g(){
+            return 666
+        }    
+        console.log(typeof g)//undefined
+        console.log(typeof g())//报错 g is not fined
+        console.log(typeof g,typeof g())//报错 g is not fined
+        //思考：如何才能打印出666？
+        
+        //2、中等
+        let foo = '1';
+        let myFunction = {
+            foo:'2',
+            funSon:function(){
+                (function(){
+                    let foo = '3';
+                    console.log("foo = "+ this.foo,this);
+                }())
+            }
+        }
+        myFunction.funSon();//foo = undefined window
+        var foo = '1';
+        var myFunction = {
+            foo:'2',
+            funSon:function(){
+                (function(){
+                    var foo = '3';
+                    console.log("foo = "+ this.foo,this);
+                }())
+            }
+        }
+        // myFunction.funSon()//foo = 1 window
+        
+        //3.中等
+        function C1(name){//此name为形参
+            if(name){//不成立，name还为构造函数的远行对象内的name
+                this.name = name;
+            }
+        }
+        function C2(name){
+            this.name = name;
+        }
+        function C3(name){
+            this.name = name || 'John';
+        }
+        C1.prototype.name = 'Tom';
+        C2.prototype.name = 'Tom';
+        C3.prototype.name = 'Tom';
+        console.log((new C1().name)+(new C2().name)+(new C3().name))//Tom undefined John
+        //resolve：打印的三个实例对象中传的参数都为空
+        
+        //4.难
+        var s = {
+            b:30
+        }
+        with(s){
+            a:20
+        }
+        alert(s.a)//undefined
+        alert(a)//20
+        //with会创建了一个新的全局的作用域，a会被当做一个全局变量，所以在外部能找到a，但是在s内部是没有a的
+        //ps：慎用with，以上会看出，会在不经意间，茫然的创建了一个全局变量，造成内存的泄漏。
+        
+        //5.难
+        var A = function(){};
+        A.prototype = {};
+        var a = new A();
+        A.prototype = {};
+        var b = new A();
+        console.log(a instanceof A);//false
+        console.log(b instanceof A);//true
+        //instanceof 验证实例对象与原型对象的关系
+        //如图所示：地址：https://www.flygoing.cn/images/2018-7-9/sdfdsf.jpg
+        
+        //6. 难
+        Object.prototype.name = "flyhandsome";
+        console.log(1.name)//报错
+        console.log(1..name)//flyhandsome
+        console.log(Function.name)//Function
+        /*
+        js 中 1.1, 1., .1 都是合法的数字. 那么在解析 1.toString 的时候这个 . 
+        到底是属于这个数字还是函数调用呢? 只能是数字, 因为1.合法啊 所以第一个报错了，第二个对了，至于第三个其实上面的name只是迷惑罢了。
+        Function维护了自己的name 返回函数名字
+        */
+        
+        //7. 简单
+        var a = [0,1];
+        a.splice(0,1);
+        console.log(a)//1
+        var a = [0,1];
+        var b = a.splice(0,1);
+        console.log(b)//0
+        //一个打印的是原数组的值，一个打印的是切下来的值，splice切割后会改变原数组
+        
+        //8.中等
+        if('https://www.flygoing.cn/gift/picture.jpg'.match('.gif')){
+            console.log('成功');
+        }else{
+            console.log('失败')
+        }
+        //成功
+        // match()必需。规定要匹配的模式的 RegExp 对象。如果该参数不是 RegExp 对象，则需要首先把它传递给 RegExp 构造函数，将其转换为 RegExp 对象。
+        //String.prototype.match 接受一个正则, 如果不是, 按照 new RegExp(obj) 转化. 所以 . 并不会转义 那么 /gif 就匹配了~
+        
+        //9.简单
+        var a = {}
+        var b = Object.prototype
+        a.prototype === b //false
+        Object.getPrototypeOf(a) === b // true
+        //resolve:只有构造函数有prototype属性，对象没有，所以a.prototype是undefined 
+        //getPrototypeOf返回的是参数的原型(该参数对象内部的prototype)的值
+        
+        //10.中等
+        alert([,,].length)//2或者3
+        //A.0 B.2 C.3 D.2或3
+        //resolve:正常情况下[,,]会进行初始化，过程如下图。进行求值，所以基本上得到的结论就是按逗号的个数进行计算。所以等于2（ES6的标准也是最后一个已逗号结尾）.但是在IE8以下为[占,占,占]，所以等于3。
+        
+        //11.难
+        var a = [0,1,2];
+        a[10] = 10;
+        a.filter(function(x){
+            return x === undefined
+        })//C
+        //A.[undefined*7] B.[empty*7] C.[] D.报错  
+        //resolve:Array.prototype.filter的 polyfill，filter迭代这个数组的时候, 首先检查了这个索引值是不是数组的一个属性, 那么我们测试一下.
+        //0 in ary; => true
+        //3 in ary; => false
+        //10 in ary; => true
+        //也就是说 从 3 - 9 都是没有初始化的'坑'!, 这些索引并不存在与数组中. 在 array 的函数调用的时候是会跳过这些'坑'的.
+
+        //12.简单
+        var x = [typeof x,typeof y][1]
+        typeof x;
+        //string
+        //resolve:typeof xxx 返回的数据类型的值的类型都是string，所以typeof x是string
+        //例:typeof 666 返回number，此number应该是“number”
+        
+        //13.难
+        function f(){
+            console.log(this,this.getPrototypeOf)//f f(){console.log(this,this.getPrototypeOf) return f}
+            return f
+        }
+        console.log(new f() instanceof f);//false 
+        //当代码 new f()执行时，下面事情将会发生：
+        //一个新对象被创建。它继承自 f.prototype
+        // 构造函数 f被执行。执行的时候，相应的传参会被传入，同时上下文( this)会被指定为这个新实例。 new f等同于 new f()，只能用在不传递任何参数的情况。
+        // 如果构造函数返回了一个“对象”，那么这个对象会取代整个 new出来的结果。如果构造函数没有返回对象，那么 new出来的结果为步骤1创建的对象，
+        // ps：一般情况下构造函数不返回任何值，不过用户如果想覆盖这个返回值，可以自己选择返回一个普通对象来覆盖。当然，返回数组也会覆盖，因为数组也是对象
+        // 于是，我们这里的 new f()返回的仍然是函数 f本身，而并非他的实例
+
+        //14 难
+        var arvin = {
+            bar:function(){
+                console.log(this)//Argument[ƒ, callee: ƒ, Symbol(Symbol.iterator): ƒ]
+                return this.baz
+            },
+            baz:1
+        };
+        (function(){
+            //架设：arguments.bar = 3
+            console.log(typeof arguments[0]())//undefined
+        })(arvin.bar)
+
+        //resolve:打印结果中 this指向arguments   arguments[0]()相当于arguments() ==>arvin.bar
+        //如架设 最后返回结果即为 number
+
+        //15 中等
+        function text(){
+            console.log('outer')
+        }
+        function qq(){
+            // var text
+            if(false){
+                function text(){
+                    console.log('inner')
+                }
+            }
+            text()
+        }
+        qq()//报错 text is not undefined
+        //resolve：类似于变量提升，text函数名提升，但是函数体并未提升，所以会报错
+
+        //16 中等
+        var arvin = [0]
+        if(arvin){
+            console.log(arvin == true)
+        }else{
+            console.log(arvin)
+        }
+        //false
+        //https://developer.mozilla.org/zh-CN/docs/Web/JavaScript/Equality_comparisons_and_sameness
+        //resolve:在进行非严格相等比较时，会将等式两边的值进行数字转换，再进行比较。转换成数字的流程是：
+        //先valueof() 如果这个函数直接返回不是对象，它直接转，如果返回对象，他继续调用toString后再转
+        //以arvin == true 为例: valueof(arvin) ==> object , toString(arvin) ==> 0; valueof(true) ==>1  0 != 1 所以打印出false  ::这里就能猜到了吧，Number(false) ==>0
+
+        //17 中等偏难
+        var a = {}
+        b={key:'b'}
+        c={key:'c'}
+
+        a[b]=123
+        a[c]=456
+        console.log(a[b])//456
+        //resolve：存在js的隐形转换现象。设置对象属性时，JavaScript会隐式地将参数值串联起来，在这种情况下，因为b和c都是对象，他们都被转换成了"[object,Object]"
+        //因此a[b]和a[c]都等价于["[object Object]"],并且可以互相转换使用。因此设置或引用[b]与设置或引用[c]是完全相同的
+
+        //18 中等
+        function a(){
+            return
+            {
+                ac:1
+            }
+        }
+        var b = a()
+        console.log(b.ac)//报错 Cannot read property 'ac' of undefined
+        //这里有个坑，应注意：return 后是没有内容的，这里会存在一个隐性的，即
+        // return undefined
+        // {
+        //     ac：1
+        // }//所以会报错，无法读取没有定义的属性ac
+        //如果是下面的return
+        // return {
+        //     ac:1
+        // }
+        //则会返回1
+
+        //19 很难 阿里面试题
+        const timeout = ms =>new Promise((resolve,reject)=>{
+            setTimeout(() => {
+                resolve
+            }, ms);
+        });
+        const ajax1 = () => timeout(2000).then(()=>{
+            console.log("1");
+            return 1;
+        });
+        const ajax2 = () => timeout(1000).then(()=>{
+            console.log("2");
+            return 2;
+        });
+        const ajax3 = () => timeout(2000).then(()=>{
+            console.log("3");
+            return 3;
+        }); 
+        const mergePromise = (ajaxArray) => {
+            // write code
+        }
+        mergePromise([ajax1,ajax2,ajax3]).then(data => {
+            console.log("done");
+            console.log(data);//data是[1,2,3]
+        })
+        //执行结果：1 2 3 done [1,2,3]
+        //如何在mergePromise中书写代码，以期打印出符合要求的内容
+        //并且分 es3、es6写法
+        //es6写法
+        const mergePromise = (ajaxArray) =>{
+            let result = [];
+            async function asyncForEach(){
+                for(let item of ajaxArray){
+                    result.push(await item())
+                }
+                return result
+            }
+            return asyncForEach()
+        }//还可以用promise reduce   思考：用promise实现
+        //es3语法(较原始)  较复杂
+        const mergePromise = (ajaxArray) =>{
+            var arr = [];
+            ajaxLenth = ajaxArray.length;
+            for(var i = 0;i<ajaxLenth;i++){
+                ajaxArray[i].next = ajaxArray[i+1];
+            }
+            function todo(item){
+                item().then(data =>{
+                    arr.push(data);
+                    var _next = item.next;
+                    _next && todo(_next);
+                })
+            }
+            todo.then = (data) =>{
+                ajaxArray[ajaxLenth -1].next = () =>
+                    timeout(0).then(()=>{
+                        data(arr)
+                    });
+                    todo(ajaxArray[0]);
+            }
+            return todo;
+        }
+        //对上面的解释
+        //1.不对现有代码引入任何的新语法
+        //2.用到了遍历器的数据结构
+        //3.用到了尾递归
+        //4.巧妙的用了代码里的timeout我用了0构建了 macrotask 
+        //5.用了函数式编程最经典的直接挂方法 避开了then
+
+        //20 中等
+        var flyhandsome = {
+            n:1
+        }
+        flyhandsome.m = flyhandsome = {
+            n:2
+        }
+        console.log(flyhandsome.m)//undefined
+        //resolve:yideng.x = yideng = { n: 2 }; 这里非常特殊
+        //“.“运算符的优先级要高于”=“的优先级，所以这里的次序是：
+        //1.创建了一个x属性，值为undefined，挂在yideng下。
+        //2.yideng的指向被改变，指向了{n:2}。
+        //3.刚才创建的x属性被赋值为{n:2}
+        //4.由于yideng的指向已经改变，不再指向原有的对象，所以yideng.x就为undefined。
+
+        //21 简单（见最下部）
+        
+        //22 难
+        while(1){
+            console.log(Math.random())
+        }//以上代码有什么问题？
+        //因为1 == true，是真值，所以上面代码会一直执行，陷入死循环，具体表现就是页面卡主，什么都干不了
+
+        //23 中等(有坑)
+        [1<2<3,3<2<1]//true true
+        //有人很容易想到后一个是false，其实两个值比较是布尔值的比较 1<2是true 2<3->true true && true 是true
+        //3<2->false 2<1->false false && false ->true
+        2 == [[[2]]]//true 对象调用toString()方法 ，因为数组也是对象啊  不管最内侧数组内是2、'2'，最后都会转换成'2'，因为不是全等比较，所以为true
+
+        //24 简单
+        alert(a)
+        var a = 1
+        function a(){}//function a(){}
+        //虽然变量a会存在提升的问题，但是函数的提升是最高的
+
+        //25 中等(可考察对原型链的认知)
+        Object.prototype.a = 'a';
+        Function.prototype.a = 'a1';
+        function Person(){};
+        var flygoing = new Person();
+        console.log(flygoing.a);//A
+        console.log(Person.a)//B
+        // A.a  B.a1  C.undefined  D.报错     *要注意一个是实例对象，一个是构造函数  
+        //new Person() _proto_ -> person.prototype -> object.prototype
+
+        //26 中等(较难) 
+        var flygoinga = Function.length
+        flygoingb = new Function().length
+        console.log(flygoinga === flygoingb)
+        // ps：length 是函数对象的一个属性值，指该函数有多少个必须要传入的参数，即形参的个数。
+        // 形参的数量不包括剩余参数个数，仅包括第一个具有默认值之前的参数个数。
+        // Function 构造器本身也是个Function。他的 length 属性值为 1 。该属性 Writable: false, Enumerable: false, Configurable: true.Function  原型对象的 length 属性值为 0 。
+
+        //27 简单
+        var fly = new Date('2018-08-21'),
+            going = new Date(2018,08,21);
+        [fly.getDay() === going.getDay(),fly.getMonth() === going.getMonth()]; //false,false
+        //这个比较好理解，going中的08指的是九月，月份是从0-11,所以，日期不一致，当然星期几也不一致了
+
+        //28 难
+        for(let i = (setTimeout(() => console.log('a->',i)), 0); 
+            setTimeout(() =>console.log('b->',i)) , i<2; i++
+         ){
+            i++ 
+         }//输入结果：a-> 0
+                //   b-> 1
+                //   b-> 2
+        //ps:for循环中，判断题和循环体的作用域不是一样的
+
+        //29 中等偏难
+        var j = 0;
+        for( var i=0; i < 100; i++){
+            j=j++;
+        }
+        console.log(j);// 0
+        //有的人就很好奇，为什么不是100 因为运算符 遵循先加先算 后加后算 
+        //每次在对j进行操作时，都会将其进行赋值操作，也就是说：每次j++前，拿到的j都是全局变量j = 0，并且j++是后计算，所以j++ = j，故而，打印出的j一直为0
+        //(每次j都是从0开始，然后赋值给j后再++，而在下一次++前，j又变为0，从全局拿到)
+        // 那如何能输出100呢？ ++j即可
+
+        //30 中等偏难
+        [typeof null,null instanceof Object]// "Object",false 
+        //这个答案肯定不难，难在解释上！因为按常理第二个应该是个true才对
+        //如果从底层来解释的话：typeof null 之所以会返回 "object" 是因为 js底层对不同的对象在底层都表示为二进制，在 JavaScript 中二进制前三位都为 0 的话会被判 断为 object 类型，
+        //null 的二进制表示是全 0，自然前三位也是 0，所以执行 typeof 时会返回“object”。实际上，null 本身是基本类型
+
+        //31 难
+        var fly = Array.prototype.push.uncurring();
+        (function(){
+            fly(arguments,4);
+            console.log(arguments);//[1,2,3,4]
+        })(1,2,3);
+        //请实现uncurring完成函数的反柯里化
+        //要想完成此题，必须要知道什么是柯里化，什么是反柯里化
+
+        //32 中等偏难
+
+        //<textarea maxlenght=10 id="a"></textarea>
+        document.getElementById('a').value = 'a'.repeat(10) + 'b';
+        //当前显示的文本内容是什么？为什么？
+        //内容：aaaaaaaaaab  maxlength限制的是文本框输入的长度，而js的赋值操作优先级高于输入事件
+
+        //33. 难
+        function side(ary) {//(1,1,1)
+            ary[0] = ary[2];
+        }
+
+        function yideng(a, b, c = 3) {//(1,1,1)
+            c = 10
+            side(arguments);
+            return a + b + c;//1,1,10
+        }
+        yideng(1, 1, 1)//12
+        
+        //变形后:
+        function side(ary) {//1,1,10
+            ary[0] = ary[2];
+        }
+
+        function yideng(a, b, c) {//1,1,10
+            c = 10
+            side(arguments);
+            return a + b + c;//10,1,10
+        }
+        yideng(1, 1, 1)//21
+    </script>
+    <!-- 21 简单 -->
+    <script>
+        flyhandsome
+        console.log(1)
+    </script>
+    <script>
+        console.log(2)
+    </script>
+    <!-- 对于 Javascript 而言，我们面对的仅仅只是异常，异常的出现不会直接导致 JS 引擎崩溃，最多只会使当前执行的任务终止。
+    所以上述过程如下：
+    1.当前代码块将作为一个任务压入任务队列中，JS 线程会不断地从任务队列中提取任务执行。
+    2.当任务执行过程中出现异常，且异常没有捕获处理，则会一直沿着调用栈一层层向外抛出，最终终止当前任务的执行。
+    3.JS 线程会继续从任务队列中提取下一个任务继续执行。 -->
+</body>
+</html>

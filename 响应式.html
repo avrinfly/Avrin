@@ -1,0 +1,183 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <!-- <meta http-equiv="X-UA-Compatible" content="ie=edge"> -->
+    <title>响应式网页</title>
+    <style>
+        *{
+            box-sizing: border-box;
+        }
+        body{
+            font-family: "Lucida Sans", sans-serif;
+        }
+        main::after{
+            clear: both;
+            display: block;
+            content: '';
+        }
+        .goods-menu::after{
+            clear: both;
+            display: block;
+            content: '';
+        }
+        [class*='col-']{
+            float: left;
+            padding: 15px;
+        }
+        header{
+            background: #93c;
+            padding: 15px;
+            color: #fff;
+        }
+        main ul{
+            list-style: none;
+            margin: 0;
+            padding: 0;
+        }
+        main li{
+            padding: 8px;
+            margin-bottom: 7px;
+            background: #33b5e5;
+            color: #fff;
+            /* box-shadow: 0 1px 3px rgba(0,0,0,0.12), 0 1px 2px rgba(0,0,0,0.24); */
+        }
+        main li:hover{
+            background: #09c;
+        }
+        .beside{
+            background-color: #33b5e5;
+            padding: 15px;
+            color: #ffffff;
+            text-align: center;
+            font-size: 14px;
+            /* box-shadow: 0 1px 3px rgba(0,0,0,0.12), 0 1px 2px rgba(0,0,0,0.24); */
+        }
+        .goods-menu{
+            background: #c5c5c5;
+        }
+        .goods-item{
+            background: yellowgreen;
+            text-align: center;
+            margin-bottom: 10px;
+            text-overflow: ellipsis;
+            white-space: nowrap;
+            overflow: hidden;
+        }
+        footer {
+            background-color: #0099cc;
+            color: #ffffff;
+            text-align: center;
+            font-size: 16px;
+            padding: 15px;
+        }
+        /* For mobile phone */
+        [class*='col-']{
+            width: 100%;
+        }
+        @media only screen and (min-width:550px){
+            /* For tablets */
+            .col-m-1{width: 8.33%;}
+            .col-m-2{width: 16.66%;}
+            .col-m-3{width: 25%;}
+            .col-m-4{width: 33.33%;}
+            .col-m-5{width: 41.66%;}
+            .col-m-6{width: 50%;}
+            .col-m-7{width: 58.33%;}
+            .col-m-8{width: 66.66%;}
+            .col-m-9{width: 75%;}
+            .col-m-10{width: 83.33%;}
+            .col-m-11{width: 91.66%;}
+            .col-m-12{width: 100%;}
+            .col-list{width: 50%}
+        }
+        @media only screen and (min-width:768px){
+            /* For Desktop */
+            .col-1{width: 8.33%;}
+            .col-2{width: 16.66%;}
+            .col-3{width: 25%;}
+            .col-4{width: 33.33%;}
+            .col-5{width: 41.66%;}
+            .col-6{width: 50%;}
+            .col-7{width: 58.33%;}
+            .col-8{width: 66.66%;}
+            .col-9{width: 75%;}
+            .col-10{width: 83.33%;}
+            .col-11{width: 91.66%;}
+            .col-12{width: 100%;}
+            .col-list{width: 33.33%}
+        }
+        @media screen and (min-width:880px) and (max-width:1200px){
+            .col-list{width: 25%}
+        }
+        @media only screen and (min-width:1200px){
+            .col-b-1{width: 8.33%;}
+            .col-b-2{width: 16.66%;}
+            .col-b-3{width: 25%;}
+            .col-b-4{width: 33.33%;}
+            .col-b-5{width: 41.66%;}
+            .col-b-6{width: 50%;}
+            .col-b-7{width: 58.33%;}
+            .col-b-8{width: 66.66%;}
+            .col-b-9{width: 75%;}
+            .col-b-10{width: 83.33%;}
+            .col-b-11{width: 91.66%;}
+            .col-b-12{width: 100%;}
+            .col-list-5{width:20%}
+            .col-list-4{width:25%}
+            .col-list-3{width:33%}
+            .col-list-2{width:50%}
+            .col-list-1{width:100%}
+            .col-list{width: 20%}
+        }
+    </style>
+</head>
+<body>
+    <!-- ps:在网站开发中，应除了meta标签还应该注意link某些属性 -->
+    <header>
+        <h2>标题</h2>
+        <nav>
+            <a href="javascript:(0);">首页</a>
+            <a href="javascript:(0);">我的博客</a>
+            <a href="javascript:(0);">我的项目</a>
+            <a href="javascript:(0);">我的简历</a>
+            <a href="javascript:(0);">我的生活</a>
+        </nav>
+    </header>
+    <main class="row"> 
+        <div class="col-3 col-m-3 nav-menu">
+            <ul>
+                <li>首页</li>
+                <li>用户管理</li>
+                <li>文章管理</li>
+                <li>新增的评论和建议</li>
+            </ul>
+        </div>
+        <div class="col-6 col-m-9">
+            <h2>首页</h2>
+            <p>个人认为这是一个非常好的评论，我们应该第三方第三方撒范德萨发的顺丰无日峰五个肉肉我股净流入金额大家拉飞机的网友二号位卡金卡的</p>
+        </div>
+        <div class="col-3 col-m-12 drop-classify">
+            <div class="beside">
+                <h2>What?</h2>
+                <p>Chania is a city on the island of Crete.</p>
+                <h2>Where?</h2>
+                <p>Crete is a Greek island in the Mediterranean Sea.</p>
+                <h2>How?</h2>
+                <p>You can reach Chania airport from all over Europe.</p>
+            </div>
+        </div>
+    </main>
+    <div class="goods-menu">
+            <div class="col-list goods-item">dsfdsfdsfdsfdsfddsfdsfdsfdsfdsf</div>
+            <div class="col-list goods-item">dsfdsfdsfdsfdsf</div>
+            <div class="col-list goods-item">dsfdsfdsfds</div>
+            <div class="col-list goods-item">fdgdfgfdgfd</div>
+            <div class="col-list goods-item">dfgfdg</div>
+        </div>
+    <footer>
+        <p>问问价覅而我我金佛凯迪拉克撒谎佛为IE见佛恩发围殴if京东阿弗莱克对方即可好浪费我的了快速减肥</p>
+    </footer>
+</body>
+</html>
