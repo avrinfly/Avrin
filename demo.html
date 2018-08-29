@@ -1,0 +1,169 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+</head>
+
+<body>
+    <div id="demo">测试</div>
+    <script>
+        // function C1(name){
+        //     if(name){
+        //         this.name = name;
+        //     }
+        // }
+        // function C2(name){
+        //     this.name = name;
+        // }
+        // function C3(name){
+        //     this.name = name || 'John';
+        // }
+        // C1.prototype.name = 'Tom';
+        // C2.prototype.name = 'Tom';
+        // C3.prototype.name = 'Tom';
+        // console.log((new C1().name)+(new C2().name)+(new C3().name))
+        // var s = {
+        //     b:30
+        // }
+        // with(s){
+        //     a:20
+        // }
+        // alert(s.a)//undefined
+        // alert(a)//20
+        // var A = function(){};
+        // A.prototype = {};
+        // var a = new A();
+        // A.prototype = {};
+        // var b = new A();
+        // console.log(a instanceof A);//false
+        // console.log(b instanceof A);//true
+        // Object.prototype.name = "666";
+        // console.log(1.name)//报错
+        // console.log(1..name)//666
+        // console.log(Function.name)//Function
+        // if('https://www.flygoing.cn/gift/picture.jpg'.match('.gif')){
+        //     console.log('成功');
+        // }else{
+        //     console.log('失败')
+        // }
+        // (function(){
+        //     var a=b=5
+        // })()
+        // console.log(b)
+        // console.log(a)
+        // function test(){
+        //     console.log('out')
+        // }
+        // (function(){
+        //     if(false){
+        //         function test(){
+        //             console.log('in')
+        //         }
+        //     };
+        //     test();
+        // })()
+        // function get(e){
+        //     box.innerHTML = count++
+        // }
+        // box.onmousemove = debounce(get,1000)
+        // function debounce(fnc,wait){
+        //     var timeout;
+        //     return function(){
+        //         clearTimeout(timeout);
+        //         timeout = setTimeout(fnc,wait);
+        //     }
+        // }
+        // var arvin = {
+        //     bar:function(){
+        //         console.log(this)//Argument[ƒ, callee: ƒ, Symbol(Symbol.iterator): ƒ]
+        //         return this.baz
+        //     },
+        //     baz:1
+        // };
+        // (function(){
+        //     console.log(typeof arguments[0]())//undefined
+        // })(arvin.bar)
+        // //
+        // function f(){
+        //     console.log(this,this.constructor)//f{}    f(){console.log(this,this.constructor) return f}
+        //     return f
+        // }
+        // console.log(new f() instanceof f);//false
+        Object.prototype.a = 'a'
+        Function.prototype.a = 'al'
+
+        function Person() {};
+        var b = new Person();
+        console.log(b.a) //a
+        console.log(Person.a) //al
+        //b.a 因为new实例化了一个对象，这个对象(也就是b)的_proto_指向Object ，因为Object.prototype.a = a
+        //Object的constructor指向其构造实例 = Persion()函数  Persion()函数的prototype下有a的属性，所以打印出al
+
+        //b.__proto  = Person.prototype;
+        // Person.prototype.__proto = Object.prototype;
+        // 补：万物皆对象
+        // Person.prototype = Function.prototype;
+        // Function.prototype..__proto = Object.prototype;
+
+        // function a(){
+        //     return
+        //     {
+        //         ac:1
+        //     }
+        // }
+        // var b = a()
+        // console.log(b.ac)//报错 Cannot read property 'ac' of undefined
+
+        // const timeout = ms =>new Promise((resolve,reject)=>{
+        //     setTimeout(() => {
+        //         resolve
+        //     }, ms);
+        // });
+        // const ajax1 = () => timeout(2000).then(()=>{
+        //     console.log("1");
+        //     return 1;
+        // });
+        // const ajax2 = () => timeout(1000).then(()=>{
+        //     console.log("2");
+        //     return 2;
+        // });
+        // const ajax3 = () => timeout(2000).then(()=>{
+        //     console.log("3");
+        //     return 3;
+        // }); 
+        // const mergePromise = (ajaxArray) => {
+        //     const 
+        //     const pushValue = (result => value => result = result.concat(value))([]); 
+        //     return ajaxArray.reduce((promise, req) => promise.then(req).then(pushValue), Promise.resolve());
+        // }
+        // mergePromise([ajax1,ajax2,ajax3]).then(data => {
+        //     console.log("done");
+        //     console.log(data);//data是[1,2,3]
+        // })
+        //执行结果：1 2 3 done [1,2,3]
+
+        // function sleep(i){
+        //     var s = (new Date()).getTime()
+        //     while((new Date()).getTime() - s < i){
+        //         continue
+        //     }
+        // }
+        var worker = new Worker("random.js");
+        Worker.onmessage = function (e) {
+            console.log(e.data);
+        }
+    </script>
+    <!-- <script>
+        yideng
+        console.log(1)
+        </script>
+        <script>
+        console.log(2)
+        </script> -->
+</body>
+
+</html>
