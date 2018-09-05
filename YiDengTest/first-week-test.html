@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+</head>
+<body>
+    1.
+    <script>
+        // yideng();
+        alert(a);
+        var flag = true;
+        if(!flag){
+            var a = 1;
+        }
+        if(flag){
+            function yideng(){
+                console.log("yideng1");
+            }
+        }else{
+            function yideng(){
+                console.log("yideng2");
+            }
+        }
+        //报错 yideng is not a function   函数提升的优先级要高于变量
+        //在判断语句中，定义了函数yideng，if语句没有执行，其内部的函数也不执行，所以是notfunction
+        //如果把 yideng()去掉，弹出 undefined, 原因：var a = 1 中，var a 会变量提升 
+        //不同浏览器表现不同 
+        //正常理解应该是yideng1， 早期浏览器里，函数会提升到顶端
+        // function yideng(){
+        //         console.log("yideng1");
+        //     }
+        //     function yideng(){
+        //         console.log("yideng2");
+        //     }
+        //所以输出yideng2
+        //稍微在往后发展，根据if条件内的判断，最后会输出yideng1
+        //在es6及以后浏览器中，存在块级作用域的概念，function yideng被一个块包裹  {
+
+        //}只提升到这个块中，所以yideng ==> undefined，所以，undefined被当做函数调用就会报错 
+    </script>
+    2.
+    <script>
+        this.a = 20;
+        var test = {
+            a:40,
+            init:()=>{
+                console.log(this)
+                console.log(this.a)
+                function go(){
+                    console.log(this.a)
+                    this.a = 60;
+                    console.log(this.a);
+                }
+                go.prototype.a = 50;
+                return go;
+            }
+        };
+        var p = test.init();
+        p();
+        new(test.init())()//20,50
+        //箭头函数的this会找到其父级作用域的this
+        //test的父级为window window下a=20
+        //函数虽然有写在原型链之前，但其调用是在原型链之后
+
+        //将注释全部放开： 20,60,60,60
+        //前两个是p()执行的结果，后两个60是new(test.init())()执行的结果，go函数内的this指向的是window，所以this.a = 60时，已经修改了全局的a，所以后面会打印出60
+    </script>
+</body>
+</html>
