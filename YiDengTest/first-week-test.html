@@ -68,5 +68,31 @@
         //将注释全部放开： 20,60,60,60
         //前两个是p()执行的结果，后两个60是new(test.init())()执行的结果，go函数内的this指向的是window，所以this.a = 60时，已经修改了全局的a，所以后面会打印出60
     </script>
+    3.
+    <script>
+        function test(){
+            var a = "yideng";
+            return function(){
+                eval("")
+            }
+        }
+        test()();
+        //闭包的准确定义：能够访问函数内的词法作用域，并且能够在外部调用，并保持了对变量的引用
+        //question: a 会被回收吗？
+        //answer: 不会，js的回收机制是全局变量不会被回收，私有变量在使用完后会被回收，
+        //但是在有eval时，不会被回收，因为欺骗词法作用域，使其不知道会不会调用该私有变量，所以，不会被回收
+        //try、catch 因为e的存在，with 也不会 会创建一个新的作用域 等等也不会被回收
+        //如果想使用eval，又想回收函数内部的a, ==> window.eval("")
+    </script>
+    4.
+    <script>
+        Object.prototype.a = 'a';
+        Function.prototype.a = 'a1';
+        function Person(){};
+        var yideng = new Person();
+        console.log('p.a:'+yideng.a);
+        console.log(1..a);
+        console.log(1.a)
+    </script>
 </body>
 </html>
