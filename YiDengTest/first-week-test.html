@@ -90,9 +90,14 @@
         Function.prototype.a = 'a1';
         function Person(){};
         var yideng = new Person();
-        console.log('p.a:'+yideng.a);
-        console.log(1..a);
-        console.log(1.a)
+        console.log('p.a:'+yideng.a);//p.a:a
+        console.log(1..a);//a   ==>相当于window.a
+        console.log(1.a)//报错 Uncaught SyntaxError: Invalid or unexpected token
+        //对原型链的考察
+        //第一个打印比较好理解：yideng是new的Person函数 yideng.__proto__=Person.prototype
+        //Person.prototype.__proto__ = Object.prototype == a
+        //要注意 1..a ==> a这个a是全局下的a，因为在原型链中，所有指向最后都会指向Object.prototype再指向null，
+        //1.a报错的原因：语法错误，数字是个基本数据类型，没有属性
     </script>
 </body>
 </html>
