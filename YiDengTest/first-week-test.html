@@ -91,13 +91,45 @@
         function Person(){};
         var yideng = new Person();
         console.log('p.a:'+yideng.a);//p.a:a
-        console.log(1..a);//a   ==>相当于window.a
-        console.log(1.a)//报错 Uncaught SyntaxError: Invalid or unexpected token
+        console.log(1..a);//a   ==>(1.).a  1. --> new Number(1.0) 后面的.a是取值 所以是合法的   只有浮点数是对象，所以浮点数是合法的，整形是不合法的。
+        console.log(1.a)//报错 Uncaught SyntaxError: Invalid or unexpected token   因为对于.的归属有争议
         //对原型链的考察
+        //应注意这样一句话：所有对象都有__proto__ 还有函数才会有prototype
         //第一个打印比较好理解：yideng是new的Person函数 yideng.__proto__=Person.prototype
         //Person.prototype.__proto__ = Object.prototype == a
         //要注意 1..a ==> a这个a是全局下的a，因为在原型链中，所有指向最后都会指向Object.prototype再指向null，
         //1.a报错的原因：语法错误，数字是个基本数据类型，没有属性
+        Person.name //"Person"函数名字的本身只能是它自己，不会被修改
+    </script>
+    5.写出JavaScript面向对象编程的混合式继承。并写出ES6版本的继承。
+    要求：汽车是父亲，Cruze是子类。父类有颜色、价格属性，有售卖的方法。
+    Cruze子类实现父亲颜色是红色，价格是740000，售卖方法实现输出如下语句：将红色的Cruze卖给了小王，价格是74万。
+    <script>
+        function autoMobile(color,price){
+            this.color = color;
+            this.price = price;
+        }
+           
+        autoMobile.prototype.sell=function(){
+            console.log("将"+this.color+"的Cruze卖给了小王，价格是"+this.price/10000+"万。")
+        }
+
+
+        function autoMobile(color,price){
+            this.color = color;
+            this.price = price;
+        }
+        autoMobile.prototype.sell = function(){
+            console.log("将"+this.color+'的'+__pro.constructor.name+"卖给了小王，价格是"+this.price/10000+"万。")
+            console.log(__pro)
+        }
+        function Cruze(color,price){
+            autoMobile.call(this,color,price)
+        }
+        var __pro = Object.create(autoMobile.prototype)//创建一个复本
+        __pro.constructor = Cruze;
+        Cruze.prototype = __pro;
+        new Cruze('红色',740000).sell();
     </script>
 </body>
 </html>
