@@ -444,6 +444,57 @@
         }//报错 fly is not a function
         //ps:个人理解：var存在变量提升，函数也存在函数提升，但是只会提升到该类的最前面，
         //在执行fly函数时，if语句并未执行，所以其内部的函数体并没有被定义，所以报错，fly并不是个函数
+
+        //35 简单
+        console.log(Number.MIN_VALUE > 0)//true
+        //MIN_VALUE 属性是 JavaScript 中可表示的最小的数（接近 0 ，但不是负数）。它的近似值为 5 x 10-324 虽然是无限接近于0，但是也是比0大
+
+        //36 较难
+        var min = Math.min(), max = Math.max()
+        console.log(min < max);//false
+        //Math.min() => Infinity Math.max() => -Infinity
+        //Math.min()返回一个数组中的最小值，如果没有传入参数则返回Infinity，意为无穷大
+        //Math.max()返回一个数组中的最大值，如果没有传入参数则返回-Infinity，意为负无穷大
+
+        //37 简单
+        function test(){}
+        console.log(test.prototype.constructor.constructor);//Function
+        //考察原型链 test.prototype.constructor ==> 指向函数自己
+        //相当于变成了 test.constructor ==> 返回对创建此对象的数组函数的引用，就找到了该函数的原型对象
+
+        //38 中等 就是有一点点绕
+        var arr = [];
+        var pointer = arr;
+        var tmp = [];
+        var inner = {
+            data:"yideng",
+            child:tmp
+        };
+        arr.push(inner);//arr = [{data:"yideng",child:[]}]
+        pointer = tmp;//pointer = [];arr = [{data:"yideng",child:[]}]
+        pointer.push(123);//pointer = [123];arr = [{data:"yideng",child:[123]}]
+        console.log(arr);//[{data:"yideng",child:[123]}]
+        //[{data:"yideng",child:[123]}] arr里只有inner里的值，长度为1
+
+        //39 较难
+        class Yideng{
+            constructor(){
+                this.x = 1;
+            }
+        }
+        class FE extends Yideng{
+            constructor(){
+                super();
+                super.name = "yideng";
+            }
+        }
+        const fe = new FE();
+        const yideng = new Yideng();
+        console.log(yideng.name);//undefined
+        console.log(fe.name);//yideng
+        //class是es6的新写法，就相当于一个function
+        //class FE extends Yideng 就相当于 根据名为Yideng的类创建一个名为FE的类 也就是说子类内部有父类的内容，但是父类不一定有子类的。
+        
     </script>
     <!-- 21 简单 -->
     <script>
