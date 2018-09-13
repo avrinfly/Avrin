@@ -113,7 +113,8 @@
         autoMobile.prototype.sell=function(){
             console.log("将"+this.color+"的Cruze卖给了小王，价格是"+this.price/10000+"万。")
         }
-
+        var Cruze = new autoMobile('红色',740000);
+        Cruze.sell()
 
         function autoMobile(color,price){
             this.color = color;
