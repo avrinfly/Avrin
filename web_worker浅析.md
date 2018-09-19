@@ -18,4 +18,4 @@ web worker产生的原因就是：*我们希望JavaScript在一段时间内能�
 这个上下文由专用worker的情况下的一个DedicatedWorkerGlobalScope 对象表示（标准 workers 由单个脚本使用; 共享workers使用SharedWorkerGlobalScope）。
 
 除了以下情况外，你可以在你的 worker 线程中运行任意的代码：你不能直接在 worker 线程中操纵 DOM 元素, 或者使用某些 window 对象中默认的方法和属性。 
-但是 window 对象中很多的方法和属性你是可以使用的，包括 [WebSockets](https://developer.mozilla.org/en-US/docs/Web/API/WebSockets_API)，以及诸如 IndexedDB 和 FireFox OS 中独有的 Data Store API 这一类数据存储机制。
+但是 window 对象中很多的方法和属性你是可以使用的，包括 [WebSockets](https://developer.mozilla.org/en-US/docs/Web/API/WebSockets_API)，以及诸如 [IndexedDB](https://developer.mozilla.org/en-US/docs/Web/API/IndexedDB_API) 和 FireFox OS 中独有的 [Data Store API](https://developer.mozilla.org/en-US/docs/Web/API/Data_Store_API) 这一类数据存储机制。

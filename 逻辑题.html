@@ -495,6 +495,18 @@
         //class是es6的新写法，就相当于一个function
         //class FE extends Yideng 就相当于 根据名为Yideng的类创建一个名为FE的类 也就是说子类内部有父类的内容，但是父类不一定有子类的。
         //yideng 下只有x，没有name，而fe因为是脱胎于Yideng，切本身有name，并且fe还有Yideng的属性x
+
+        //40 较难
+        a = 1;
+        delete a;
+        console.log(typeof a)//undefined
+        
+        var a = 1;
+        delete a;
+        console.log(typeof a)//number
+
+        //a=1等价于this.a=1，即把 "a"：1加到全局变量里面，这时候使用delete，结果是从全局变量集中删除该变量，这是a的type为undefined。 
+        //delete不能直接作用于变量。等价于，var tmp={x1:1, x2:2}; delete tmp.x1; typeof tmp.x1 ==> "undefined"
     </script>
     <!-- 21 简单 -->
     <script>
