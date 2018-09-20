@@ -507,6 +507,25 @@
 
         //a=1等价于this.a=1，即把 "a"：1加到全局变量里面，这时候使用delete，结果是从全局变量集中删除该变量，这是a的type为undefined。 
         //delete不能直接作用于变量。等价于，var tmp={x1:1, x2:2}; delete tmp.x1; typeof tmp.x1 ==> "undefined"
+
+        //41 难
+        let length = 10;
+        function fn(){
+            console.log(this);
+            console.warn(this.length);
+        }
+        let obj = {
+            length:5,
+            method:function (args){
+                args();
+                arguments[0]();
+            }
+        };
+        obj.method(fn,1);//window 0  arguments 2
+        //console.warn()向Web控制台输出一条警告信息。ps：在web worker中也可以使用
+        //window.length ==> 指的是页面中ifa
+        //method执行时，args => fn  ---> fn()没有人调用，指向window,arguments[0]() ==>   arguments[0]  => arguments.0 => arguments.fn~ 就相当于在arguments下调用fn
+        //你可能会一脸懵逼，因为this谁调用指向谁。没人调指window，所以第一个args前面有人调？显然没有 window.length不应该是undefined，不不。他是iframe的数量。第二个不说了吧，实参是2个啊。
     </script>
     <!-- 21 简单 -->
     <script>
