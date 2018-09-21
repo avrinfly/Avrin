@@ -528,6 +528,27 @@
         //method执行时，args => fn  ---> fn()没有人调用，指向window,window.length --> 0
         // arguments[0]() ==>   arguments[0]  => arguments.0 => arguments.fn~ 就相当于在arguments下调用fn
         //你可能会一脸懵逼，因为this谁调用指向谁。没人调指window，所以第一个args前面有人调？显然没有 window.length不应该是undefined，不不。他是iframe的数量。第二个不说了吧，实参是2个啊。
+
+        //42 难
+        setImmediate(function () {
+            console.log('yideng-a');
+        });
+        setTimeout(function () {
+            console.log('yideng-b');
+        }, 0);
+        process.nextTick(function () {
+            console.log('yideng-c');
+        });
+        new Promise(function (resolve, reject) {
+            resolve('yideng-dd');
+            console.log('yideng-e');
+        }).then(function () {
+            console.log('yideng-f')
+        });//执行顺序 --> e、c、f、b、a
+        //Node.js还提供了另外两个与"任务队列"有关的方法：process.nextTick和setImmediate。
+        //process.nextTick方法可以在当前"执行栈"的尾部----下一次Event Loop（主线程读取"任务队列"）之前----触发回调函数。也就是说，它指定的任务总是发生在所有异步任务之前。
+        //setImmediate方法则是在当前"任务队列"的尾部添加事件，也就是说，它指定的任务总是在下一次Event Loop时执行，这与setTimeout(fn, 0)很像。
+        //promise.then 虽然和 process.nextTick 一样，都将回调函数注册到 microtask，但优先级不一样。process.nextTick 的 microtask queue 总是优先于 promise 的 microtask queue 执行。
     </script>
     <!-- 21 简单 -->
     <script>
