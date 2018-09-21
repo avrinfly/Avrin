@@ -523,8 +523,10 @@
         };
         obj.method(fn,1);//window 0  arguments 2
         //console.warn()向Web控制台输出一条警告信息。ps：在web worker中也可以使用
-        //window.length ==> 指的是页面中ifa
-        //method执行时，args => fn  ---> fn()没有人调用，指向window,arguments[0]() ==>   arguments[0]  => arguments.0 => arguments.fn~ 就相当于在arguments下调用fn
+        //window.length ==> 指的是页面中iframe的数量
+        //要注意的是：当method实参多于形参时，顺序是从前向后依次传入  ==>对应到此题，method内只传入了fn
+        //method执行时，args => fn  ---> fn()没有人调用，指向window,window.length --> 0
+        // arguments[0]() ==>   arguments[0]  => arguments.0 => arguments.fn~ 就相当于在arguments下调用fn
         //你可能会一脸懵逼，因为this谁调用指向谁。没人调指window，所以第一个args前面有人调？显然没有 window.length不应该是undefined，不不。他是iframe的数量。第二个不说了吧，实参是2个啊。
     </script>
     <!-- 21 简单 -->
