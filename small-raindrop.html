@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>小雨滴</title>
+    <style>
+        body{
+            margin: 0;
+            padding: 0;
+        }
+        .box{
+            width: 200px;
+            height: 200px;
+            margin: 0 auto;
+            background: rgba(0,0,0,.1);
+            margin-top: 50px;
+        }
+        .circle{
+            position: relative;
+            /* top: 0px; */
+            width: 30px;
+            height: 30px;
+            line-height: 30px;
+            margin: 0 auto;
+            background: red;
+            border-radius: 0px 18px 31px 18px;
+            transform: rotate(45deg);
+            background: radial-gradient(#f3eeee,#86cbffb5,#86cbff);
+        }
+    </style>
+</head>
+<body>
+    <div id="box" class="box">
+        <div id="circle" class="circle"></div>
+    </div>
+    <script>
+        var c = document.getElementById('circle');
+        topNumber = 0
+        // console.log(c.style)
+        setInterval(()=>{
+            if(topNumber <= 200-30){
+                topNumber++
+                c.style.top = topNumber + 'px'
+            }else{
+                topNumber = 0;
+            }
+        })
+    </script>
+</body>
+</html>
