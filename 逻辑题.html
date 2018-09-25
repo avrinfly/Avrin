@@ -548,8 +548,9 @@
         //Node.js还提供了另外两个与"任务队列"有关的方法：process.nextTick和setImmediate。
         //process.nextTick方法可以在当前"执行栈"的尾部----下一次Event Loop（主线程读取"任务队列"）之前----触发回调函数。也就是说，它指定的任务总是发生在所有异步任务之前。
         //setImmediate方法则是在当前"任务队列"的尾部添加事件，也就是说，它指定的任务总是在下一次Event Loop时执行，这与setTimeout(fn, 0)很像。
-        //promise.then 虽然和 process.nextTick 一样，都将回调函数注册到 microtask，但优先级不一样。process.nextTick 的 microtask queue 总是优先于 promise 的 microtask queue 执行。
-        //综上所述+我的理解：在执行JavaScript脚本时，同步操作执行的任务队列要优于异步队列
+        //promise.then 虽然和 process.nextTick 一样，都将回调函数注册到 microtask，但优先级不一样。process.nextTick 的 microtask queue 总是优先于 promise 的 microtask queue 执行。所以c在f之前
+        //综上所述+我的理解：在执行JavaScript脚本时，同步操作执行的任务队列要优于异步队列(Event Loop)
+        //settimeout因为有设定时间，虽然时间设置为0，也就是立刻执行，但是js在执行时会将其当做异步操作进行解析。
     </script>
     <!-- 21 简单 -->
     <script>
