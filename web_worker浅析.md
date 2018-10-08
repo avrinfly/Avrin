@@ -23,3 +23,5 @@ web worker产生的原因就是：*我们希望JavaScript在一段时间内能�
 每个web worker都维护了自己的event loop，可以分开来工作，彼此通过postMessage通信。
 
 ![web worker loop](https://www.flygoing.cn/images/web-worker-loop.png)
+
+主线程和web worker的event loop的区别在于，主线程每次task完成后会进行视图更新，但是worker和dom无关，就没有这一步了。
