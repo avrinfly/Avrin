@@ -561,8 +561,36 @@
         let y = [...yideng2]
         console.log(y)//yideng2 is not iterable 意为yideng2不能被遍历，因为y是不能被遍历，如果想被遍历应先转换成数组
         //...x => x
+        //如果想输出数组y为
+        const list = []
+        Object.keys(json).forEach(function(item, index) { 
+            this.push( item, json[item])
+        }, list)
 
         //44 中等偏难
+        //以下代码会抛出异常吗？为什么===
+        let yideng = {x:1,y:2};
+        let objWithXGetter = {...yideng,get x(){throw new Error()}}
+        // 改成以下情况还会抛出异常吗？为什么===
+        let yideng = {x:1,y:2};
+        let objWithXGetter = {.0
+            ...yideng,
+            get x(){throw new Error()}
+        }
+        // 解析：
+        // 第一段代码等价于：
+        // let objWithXGetter = {};
+        // Object.assign(objWithXGetter, a);
+        // Object.defineProperty(objWithXGetter, "x", {
+        //   get(){ throw new Error() },
+        //   enumerable : true,
+        //   configurable : true
+        // });
+        // 不会抛出异常。
+        // 第二段代码 .x 被调用了，所以抛出了异常
+        // 如果你一脸懵逼，真得反思下自己的JS了。
+
+        //45 偏难
     </script>
     <!-- 21 简单 -->
     <script>
