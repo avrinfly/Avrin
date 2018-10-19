@@ -560,12 +560,8 @@
         let yideng2 = {a:1,b:2,length:2};
         let y = [...yideng2]
         console.log(y)//yideng2 is not iterable 意为yideng2不能被遍历，因为y是不能被遍历，如果想被遍历应先转换成数组
-        //...x => x
-        //如果想输出数组y为
-        const list = []
-        Object.keys(json).forEach(function(item, index) { 
-            this.push( item, json[item])
-        }, list)
+        //...x => 解构赋值 详见...扩展运算符 应用
+        
 
         //44 中等偏难
         //以下代码会抛出异常吗？为什么===
