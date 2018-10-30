@@ -598,6 +598,23 @@
         //a.x = a，此时等号右侧的a->{n:2},但是等号左侧的a.x中的a在执行前指向的还是原来的a ->{n:1} ,所以就变成了a={n:1;x:{n:2}}，但是这个a是旧的，在执行完a.x = a后就被gc回收了
         //所以上一步执行完之后 a = {n:2}，
         //所以a.x = undefined
+
+        //46 难
+        button.addEventListener('click',()=>{
+            Promise.resolve().then(() => console.log('yideng-task1'));
+            console.log('yideng1')
+        })
+        button1.addEventListener('click',()=>{
+            Promise.resolve().then(() => console.log('yideng-task2'));
+            console.log('yideng2')
+        })
+        //1.用户手动点击的执行结果
+        //2.自动化脚本测试的执行结果，并说出为什么
+
+        //1. yideng1 yideng-task1 yideng2 yideng-task2
+        //应注意用户点击时的执行结果产生的原因是：这两个监听点击事件，是两个task队列，Promise回调被当做microtask微任务排队
+        //2. yideng1 yideng2 yideng-task1 yideng-task2
+        //和浏览器的某种机制有关，具体在后续学习中再补充
     </script>
     <!-- 21 简单 -->
     <script>
