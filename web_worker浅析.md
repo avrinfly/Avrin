@@ -24,13 +24,10 @@ web worker产生的原因就是：***我们希望JavaScript在一段时间内能
 
 ![web worker loop](https://www.flygoing.cn/images/web-worker-loop.png)
 
-<<<<<<< HEAD
 主线程和web worker的event loop的区别在于，主线程每次task完成后会进行视图更新，但是worker和dom无关，就没有这一步了。
-=======
 ## Web Worker API
 - 检测当前浏览器是否支持web worker
 
 - 启动web worker
 
 - 
->>>>>>> 722b999b2aea2b1da33ad0b8eb335aef757cb2a9
