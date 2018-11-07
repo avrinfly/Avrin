@@ -617,7 +617,36 @@
         //和浏览器的某种机制有关，具体在后续学习中再补充
 
         //47 难
+        const init = function(){
+            return 
+            {
+                bar:"hello"
+            }
+        };
+        (function(){
+            console.log("yideng");
+        })();
+        const result = init();
+        console.log(result.bar);
+        //yideng 报错   报错信息：Cannot read property 'bar' of undefined
+        //第一个yideng很好理解，自执行函数的执行顺序优先级最高   后一个有点坑，要注意以下的区别
+        // return {                     return 
+        //     bar:"hello"              {
+        //                                 bar:"hello"
+        //     }                        }
+        //前者是正常返回了一个bar属性，属性值为hello，后者返回的是一个类，在es6中，该类有自己的作用域，故外部无法取到，因而会报错，Cannot read property 'bar' of undefined
+        //将init的最后的分号去掉，会是什么结果？
+        //就会报两个错误，1.第一次执行Uncaught TypeError: (intermediate value)(...) is not a function 因为把init当成了函数去执行。所以init后面加“；”
+        //              2.修正后 return 后浏览器默认加；所以执行init 拿不到bar 提升 return{..} 这个错误跟上面的报错是一致的
         
+        //48 难
+        var Employee = {
+            company:"yideng"
+        }
+        var emp1 = Object.create(Employee);
+        delete emp1.company
+        console.log(emp1.company)//yideng
+        //解析：解析：这里的 emp1 通过 prototype 继承了 Employee的 company。emp1自己并没有company属性。所以delete操作符的作用是无效的。
     </script>
     <!-- 21 简单 -->
     <script>
