@@ -7,6 +7,13 @@
     <title>console控制台</title>
 </head>
 <body>
-    console.groupCollapsed
+    <script>
+        console.groupCollapsed
+        console.time('small loop');  
+        for (var i = 0; i < 100000; i++) {  
+            ;  
+        }  
+        console.timeEnd('small loop'); 
+    </script>
 </body>
 </html>
