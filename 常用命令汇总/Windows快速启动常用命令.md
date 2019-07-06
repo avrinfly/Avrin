@@ -1,0 +1,38 @@
+### 首先应打开快速启动工具
+快捷键 win + R键
+### 快速启动工具常用命令
+- **certmgr.msc**  查看当前证书管理
+- **calc** 计算器
+- **notepad** 记事本
+- **write** 写字板
+- **charmap** 启动[字符映射表](https://www.baidu.com/s?wd=%E5%AD%97%E7%AC%A6%E6%98%A0%E5%B0%84%E8%A1%A8&tn=SE_PcZhidaonwhc_ngpagmjz&rsv_dl=gh_pc_zhidao)
+- **cmd** 命令提示符
+- **mspaint** 画图板
+- **explorer** 资源管理器
+- **clipbrd** 剪贴板查看器
+- **mstsc** 远程桌面连接
+- **control** 控制面板
+- **control userpasswords2** 用户账户控制
+- **winver** 检查Windows版本
+- **snippingtool** 截图工具，支持无规则截图
+- **mplayer2** 简易windows media player
+- **Sndvol** 音量控制程序
+- **osk** 打开屏幕键盘
+- **cleanmgr** 打开磁盘清理工具
+- **compmgmt.msc** 计算机管理
+- **gpedit.msc** 组策略
+- **logoff** 注销命令
+- **taskmgr** 任务管理器
+- **shutdown -s -t 0** 立刻关机(t为时间参数，单位为秒)
+- **shutdown -r -t 0** 立刻重启(t为时间参数，单位为秒)
+- **shutdown -l** 注销
+- **regedit** 注册表编辑器
+- **mmc** 打开控制台
+- **services.msc** 本地服务设置
+- **powershell** 命令行外壳程序和脚本环境(可写自己编写的脚本)
+- **devmgmt.msc** 设备管理器
+- **diskmgmt.msc** 磁盘管理实用程序
+- **msconfig** 系统配置实用程序(工具选项卡里边可以查看一些命令的使用)
+- **magnify** 放大镜
+- **secpol.msc** 本地安全策略
+- **utilman** 轻松访问
