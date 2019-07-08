@@ -90,3 +90,48 @@ console.log(result) //输出 '55'
 以上说明了加法运算符的两种模式之间的差别。第一个好理解，第二个输出55的原因是，另一个非字符串的运算数也会被转换成字符串。
 
 ==注意：为了避免JavaScript出现这种常见错误，在使用加法运算符时，应仔细检查运算数的数据类型==
+
+### 减号运算符（+）
+
+减、乘和除没有加法特殊，都是一样的性质，导读解读减号运算符（-）。乘除可以类比
+- 产生式 AdditiveExpression：AdditiveExpression - MultiplicativeExpression按照下面的过程执行：
+    1. 令lref为解释执行AdditiveExpression的结果.
+    2. 令lval为GetValue(lref).
+    3. 令rref为解释执行MultiplicativeExpression的结果.
+    4. 令rval为GetValue(rref).
+    5. 令lnum为ToNumber(lval).
+    6. 令rnum为ToNumber(rval).
+    7. 返回放回将减法运算作用于ToNumber(lprim)和ToNumber(rprim)的结果。
+
+与加法运算符一样，在处理特殊值时，减法运算符也有一些特殊行为：
+- 某个运算数是NaN，那么结果为NaN。
+- Infinity 减 Infinity，结果为NaN。
+- -Infinity 减 -Infinity，结果为NaN。
+- Infinity 减 -Infinity，结果为Infinity。
+- -Infinity 减 Infinity，结果为-Infinity。
+- +0 减 +0，结果为 +0。
+- -0 减 -0，结果为 -0。
+- +0 减 -0，结果为 +0。
+- 某个运算符不是数字，那么结果为NaN。
+
+==PS：如果运算数都是数字，那么执行常规的减法运算，并返回结果。==
+
+### 前自增运算符（++）
+直接从C（和java）借用的两个运算符是前增量运算符和前减量运算符。
+
+所谓前增量运算符，就是数值上加1，形式是在变量前放两个加号（++）
+```
+var iNum = 10;
+++iNum;
+```
+第二行代码把iNum增加到11，实质上等价于：
+```
+var iNum = 10;
+iNum = iNum + 1;
+```
+
+ECMAScript5规范对前自增运算符（++）解读：
+- 产生式 UnaryExpression：++ UnaryExpression按照下面的过程执行：
+    1. 令expr为解释执行UnaryExpression的结果。
+    2. 抛出一个SyntaxError异常当以下条件全部为真：
+        1. 
