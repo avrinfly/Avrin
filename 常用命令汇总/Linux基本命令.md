@@ -47,3 +47,7 @@
 - **mv** 修改文件名
     1. mv aaa bbb 将aaa文件夹修改名为bbb
 
+- **rz** 上传  
+    若rz命令不存在，则需通过```yum -y install  lrzsz```命令安装
+
+    通过命令```rpm -qa lrzsz```查看是否安装成功
