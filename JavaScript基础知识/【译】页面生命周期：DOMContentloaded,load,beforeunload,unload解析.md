@@ -62,3 +62,38 @@ document.addEventListener("DOMContentLoaded",ready);
 ```DOMContentloaded``` | 带有```async```的脚本也许会在页面没有完全下载完之前就加载，这种情况会在脚本很小或有缓存，并且页面很大的情况下发生。| 带有```defer```的脚本会在页面加载和解析完毕后执行，刚好在```DOMContentLoaded```**之前**执行。
 
 所以```async```用在那些完全不依赖其他脚本的脚本上。
+#### DOMContentloaded与层叠样式表
+外部样式表并不会阻塞DOM的解析，所以```DOMContentLoaded```并不会被它们影响。
+
+不过仍然有一个陷阱：如果在样式后面有一个内联脚本，那该脚本必须等待样式先加载完。
+
+**译注：简单来说，JS因为有可能会去获取DOM的样式，所以JS会等待样式表加载完毕，而JS是阻塞DOM解析的，所以在有外部样式表时，JS会一直阻塞到外部样式表下载完毕**
+
+```
+<link type="text/css" rel="stylesheet" href="xxx.css">
+<script>
+    // 脚本直到样式表加载完毕后才会执行。
+    alert(getComputedStyle(document.body).marginTop);
+</script>
+```
+发生这种事的原因是脚本也有可能会像上面的例子所示，去得到一些元素的坐标或者基于样式的属性。所以它们自然要得到样式加载完毕后才可执行。
+
+```DOMContentLoaded```需要等待脚本执行，脚本又需要等待样式的加载。
+#### 浏览器的自动补全
+Firefox,Chrome和Opera会在```DOMContentLoaded```执行时自动补全表单。
+
+例如，如果页面有登录界面，浏览器记住了该页面的用户名和密码，那么在```DOMContentloaded```运行时浏览器会试图自动补全表单(如果用户设置允许)。
+
+所以如果```DOMContentloaded```被一个需要长时间执行的脚本阻塞，那么自动补全也会等待。你也许见过某些网站（如果你的浏览器开启了自动补全）—— 浏览器并不会立刻补全登录项，而是等到整个页面加载完毕后才填充。这就是因为在等待```DOMContentLoaded```事件。
+
+使用带```async```和```defer```的脚本的一个好处是：它们不会阻塞```DOMContentLoaded```和浏览器自动补全。
+
+**译注：其实执行还是会阻塞的**
+
+```defer```是会阻塞```DOMContentLoaded```的，被```defer```的脚本要在```DOMContentloaded```**触发前**执行，如果HTML很快就加载完了(先不考虑CSS阻塞```DOMContentLoaded```的情况)，而```defer```的脚本还没有加载完，浏览器就会等，等到脚本加载完，执行完，再触发```DOMContentLoaded```，放一张图(取自```devTool```下分析的一个页面)
+
+![devTool分析的页面](https://www.flygoing.cn/images/2019-7-10/devtool-analyse.png)
+
+可以看到，HTML很快就加载和解析完毕了(CSS在这里是动态加载，不阻塞```DOMContentLoaded```)，jQuery和main.js的脚本是```defer```的，```DOMContentLoaded```(蓝线)一直在等，等到这两个脚本下载完并执行完，才触发了```DOMContentLoaded```。
+
+从这个角度看，```defer```和把脚本放在```</body>```前没有区别，只不过```defer```脚本位于```head```中，更早被读到，加载更早，而且不担心会被其他脚本推迟下载开始的时间。
