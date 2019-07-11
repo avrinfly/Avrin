@@ -122,3 +122,15 @@ Firefox,Chrome和Opera会在```DOMContentLoaded```执行时自动补全表单。
 用户离开页面的时候，```window```对象上的```unload```事件会被触发，我们可以做一些不存在延迟的事情，比如：关闭弹出的窗口，可是我们无法阻止用户转移到另一个页面上。
 
 所以我们需要使用另一个事件 —— ```onbeforeunload```
+
+#### window.onbeforeunload
+---
+如果用户即将离开页面或者关闭窗口时，```beforeunload```事件将会被触发以进行额外的确认。
+
+浏览器将显示返回的字符串，举例：
+```
+window.onbeforeunload = function() {
+    return "There are unsaved changes. Leave now?";
+}
+```
+有些浏览器像Chrome和火狐会忽略返回的字符串取而代之显示浏览器自身的文本，这是为了安全考虑，来保证用户不受错误信息的误导。
