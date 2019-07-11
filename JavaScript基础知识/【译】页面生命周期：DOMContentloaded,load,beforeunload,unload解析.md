@@ -116,3 +116,9 @@ Firefox,Chrome和Opera会在```DOMContentLoaded```执行时自动补全表单。
 
 <img id="img" src="https://www.flygoing.cn/images/timg.jpg">
 ```
+
+#### window.onunload
+---
+用户离开页面的时候，```window```对象上的```unload```事件会被触发，我们可以做一些不存在延迟的事情，比如：关闭弹出的窗口，可是我们无法阻止用户转移到另一个页面上。
+
+所以我们需要使用另一个事件 —— ```onbeforeunload```
