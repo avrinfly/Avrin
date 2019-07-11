@@ -97,3 +97,22 @@ Firefox,Chrome和Opera会在```DOMContentLoaded```执行时自动补全表单。
 可以看到，HTML很快就加载和解析完毕了(CSS在这里是动态加载，不阻塞```DOMContentLoaded```)，jQuery和main.js的脚本是```defer```的，```DOMContentLoaded```(蓝线)一直在等，等到这两个脚本下载完并执行完，才触发了```DOMContentLoaded```。
 
 从这个角度看，```defer```和把脚本放在```</body>```前没有区别，只不过```defer```脚本位于```head```中，更早被读到，加载更早，而且不担心会被其他脚本推迟下载开始的时间。
+
+#### window.onload
+---
+
+```window```对象上的```onload```事件在所有文件包括层叠样式表、图片和其他资源下载完成后触发。
+
+下面的例子正确检测了图片的大小，因为```window.onload```会等待所有图片加载完成。
+```
+<script>
+    window.onload = function() {
+        alert('Page loaded');
+        
+        // image is loaded at this time
+        alert(`Image size: ${img.offsetWidth}x${img.offsetHeight}`);
+    };
+</script>
+
+<img id="img" src="https://www.flygoing.cn/images/timg.jpg">
+```
