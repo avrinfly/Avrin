@@ -207,3 +207,17 @@ document.addEventListener('readystatechange', () => console.log(document.readySt
 方括号内的数字表示他们发生的时间，真实发生时间会更晚一些，不过相同数字的时间可以认为是同一时刻被按顺序触发(误差在几毫秒内)
 - ```document.readyState```在```DOMContentLoaded```前一刻变为```interactive```，这两个事件可以认为是同时发生。
 - ```document.readyState```在所有资源加载完毕后(包括```iframe```和```img```)变成```complete```，我们可以看到```complete```、```img.onload```和```window.onload```几乎同时发生，区别是：```window.onload```在所有其他的```load```事件之后执行。
+
+#### 总结
+---
+页面事件的生命周期：
+- ```DOMContentLoaded```事件在DOM树构建完毕后被触发，我们可以在该阶段使用JS去访问元素。
+    - ```async```和```defer```的脚本可能还没有执行。
+    - 图片和其他资源文件可能还在下载中。
+- ```load```事件在页面所有资源被加载完毕后触发，通常我们不会用到该事件，因为我们不需要等那么久
+- ```beforeunload```在用户即将离开页面时触发，它返回一个字符串，浏览器会向用户展示并询问这个字符串以确定是否离开。
+- ```unload```在用户已经离开时触发，我们在该阶段仅仅能做一些没有延迟的操作(同步操作)，由于种种限制，很少被使用。
+- ```document.readyState```表征页面的加载状态，可以在```readystatechange```中追踪页面的变化状态：
+    - ```loading``` —— 页面正在加载中。
+    - ```interactive``` —— 页面解析完毕，时间上和```DOMContentLoaded```同时发生，不过顺序在它之前。
+    - ```complete``` —— 页面上的资源都已经加载完毕，时间上和```window.onload```同时发生，不过顺序在它之前。
