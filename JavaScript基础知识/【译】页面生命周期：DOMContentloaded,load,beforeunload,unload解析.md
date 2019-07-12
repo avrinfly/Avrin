@@ -134,3 +134,76 @@ window.onbeforeunload = function() {
 }
 ```
 有些浏览器像Chrome和火狐会忽略返回的字符串取而代之显示浏览器自身的文本，这是为了安全考虑，来保证用户不受错误信息的误导。
+
+#### readyState
+---
+
+如果我们在整个页面加载完毕后设置```DOMContentloaded```会发生什么呢？
+
+答案是：**啥也没有**,```DOMContentLoaded```不会被触发。
+
+有一些情况我们无法确定页面上是否已经加载完毕，比如一个带有```async```的外部脚本的加载和执行是异步的 **(译注：执行不是异步的-_-)**。在不同的网络状况下，脚本有可能是在页面加载完毕后执行也有可能是在页面加载完毕前执行，我们无法确定。所以我们需要知道页面加载的情况。
+
+```document.readyState```属性给了我们加载的信息，有三个可能的值：
+
+- ```loading``` 加载 —— document仍在加载。
+- ```interactive``` 互动 —— 文档已经完成加载，文档已经被解析，但是诸如图像，层叠样式表和框架之类的子资源仍在加载。
+- ```complete``` —— 文档和所有子资源已经完成加载。状态表示```load```事件即将被触发。
+
+所以我们可以检查```document.readyState```的状态，如果没有就绪可以选择挂载事件，如果已经就绪了就可以直接立即执行。
+
+例如：
+```
+function work() {
+    //do something
+}
+if(document.readyState == 'loading') {
+    document.addEventListener('DOMContentLoaded', work);
+}
+else {
+    work();
+}
+```
+每当文档的加载状态改变的时候就有一个```readystatechange```事件被触发，所以我们可以打印出所有的状态。
+```
+// current state
+console.log(document.readyState);
+
+// print state changes
+document.addEventListener('readystatechange', () => console.log(document.readyState));
+```
+```readystatechange```是追踪页面加载的一个可选方法，很久之前就已经有了，不过很少被使用，为保证周期的完整性还是介绍一下它。
+
+```readystatechange```的在各个事件中的执行顺序又是如何呢？
+```
+<script>
+  function log(text) { 
+    /* output the time and message */
+  }
+  log('initial readyState:' + document.readyState);
+
+  document.addEventListener('readystatechange', () => log('readyState:' + document.readyState));
+  document.addEventListener('DOMContentLoaded', () => log('DOMContentLoaded'));
+
+  window.onload = () => log('window onload');
+</script>
+
+<iframe src="https://www.flygoing.cn/yuedu/joke.html" onload="log('iframe onload')"></iframe>
+
+<img src="http://en.js.cx/clipart/train.gif" id="img">
+<script>
+  img.onload = () => log('img onload');
+</script>
+```
+输入如下：
+1. ```[1] initial readyState:loading```
+2. ```[2] readyState:interactive```
+3. ```[2] DOMContentLoaded```
+4. ```[3] iframe onload```
+5. ```[4] readyState:complete```
+6. ```[4] img onload```
+7. ```[4] window onload```
+
+方括号内的数字表示他们发生的时间，真实发生时间会更晚一些，不过相同数字的时间可以认为是同一时刻被按顺序触发(误差在几毫秒内)
+- ```document.readyState```在```DOMContentLoaded```前一刻变为```interactive```，这两个事件可以认为是同时发生。
+- ```document.readyState```在所有资源加载完毕后(包括```iframe```和```img```)变成```complete```，我们可以看到```complete```、```img.onload```和```window.onload```几乎同时发生，区别是：```window.onload```在所有其他的```load```事件之后执行。
