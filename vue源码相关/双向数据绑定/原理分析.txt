@@ -1,6 +1,7 @@
 对应Vue2.x使用Object.defineproperty进行数据绑定的情况
 Vue3使用proxy，摒弃了Object.defineproperty,因为Object.defineproperty只能对对象使用，如果是数组的话，需要将其转换为对象
 并且对于多层嵌套的对象来说，如果你想找到对应的对象，还要将其扒出来
+Vue3的双向绑定demo见上一层的proxyVue.html
 
 a.执行了new vue
 b. compile编译了代码，然后追加到页面里去
