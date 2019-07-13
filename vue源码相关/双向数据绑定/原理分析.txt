@@ -1,0 +1,19 @@
+a.执行了new vue
+b. compile编译了代码，然后追加到页面里去
+c. this 是vue的实例对象  实例上绑定了一个data的属性，也就是new的新实例里的data
+d. observe  observe(data,this)
+e. observe函数--->遍历data，然后执行defineReactive(vm,key,obj[key]) vm指的是实例  key --> text   obj[key] -->hello world
+f. 所以在observe.js里做到了，只要有人动index.html里的data，就会触发get或者set，如果为得到data，就触发get，如果修改data就触发set
+g. 通过激活defineReactive  ---> 寻找Dep，在get的时候，addsub添加(depend)一个子节点，set的时候，通知(notify)
+h. dep.js 建立一个空数组subs(类似卖报大爷电话本) 来一个get就，添加子节点到空数组里（即来一个人问，就添加到电话本里） notify时，则遍历数组subs并更新每一项
+简而言之：来一个问(get):添加到电话本，当data值改变，就相当于报纸到了，就通知电话本上的所有人，报纸到了 ----> 发布订阅者模式
+i. Dep.target?  读取text变量时，增加Dep.target ?? dom??? ---->通过示意图可知，它是watcher
+j. compile   接收一个node节点(DOM元素)和this  compilejs里，如果node节点存在，则创建一个虚拟节点(nodeToFragment)，并返回了我们需要的最后的dom  
+k. nodeToFragment 遍历得到所有的DOM节点  在遍历过程中去编译compileElement
+l. compileElement 要先正则匹配到所有的{{text}}节点   然后判断节点的类型
+m. 页面的指令 ----> Watcher
+n.Watcher(vm,node,name,nodevalue) ---> name --> text  ,然后看Watcher干了什么
+o. Watcher.js  Dep.target = this 就是当前dom元素对应的watcher dep.js里的subs放的应该就是一个一个的Watcher
+p.Watcher 先赋值后，执行了update update干了什么？进行get  把this.vm[this.name] 也就是text赋值给自己的一个新属性叫value
+q. 然后this.node[this.type] = this.value 也就是把value的值赋值给当前dom的值，完成了对dom节点的赋值  -----然后结束了，给dom赋了值
+r. 如果是set，即修改，则在compilejs中，拿到它的属性，判断当属性=v-model ，把节点值取出来，给该节点绑定一个input属性，当属性改变时，对该实例(this)的属性值进行赋值，则在observe中，dep发起通知，也就是dep中存储的watcher发起通知，怎么通知？在Dep.js里调用watcher的update，update再次进行赋值

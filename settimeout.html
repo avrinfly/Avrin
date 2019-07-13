@@ -19,13 +19,16 @@
 <body>
     <div id="box"></div>
     <script>
-        var count = 0
-        var box = document.getElementById('box')
-        function getAdd(e){
-            console.log(box)
-            box.innerHTML = count++
-        }
-        box.onmousemove = getAdd
+        // var count = 0
+        // var box = document.getElementById('box')
+        // function getAdd(e){
+        //     console.log(box)
+        //     box.innerHTML = count++
+        // }
+        // box.onmousemove = getAdd
+        let Observe = new MutationObserver(function(mutations){
+            console.log(mutations+'s')
+        })
     </script>
 </body>
 </html>
