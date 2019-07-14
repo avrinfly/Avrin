@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>dom diff</title>
+</head>
+<body>
+    <!-- old -->
+    <ul class="list">
+        <li class="item">1</li>
+        <li class="item">2</li>
+        <li class="item">3</li>
+        <li class="item">4</li>
+    </ul>
+    <!-- new -->
+    <ul class="lists">
+            <li class="item">
+                <div class="item">5</div>
+            </li>
+            <li class="cont">2</li>
+            <li class="item">a</li>
+            <li>xxxx</li>
+        </ul>
+    <script type="module" src="./domdiff/index.js"></script>
+</body>
+</html>
