@@ -1,5 +1,5 @@
 import { createElement } from './element.js'
-import {diff} from './diff.js'
+import { diff } from './diff.js'
 //构建旧树的虚拟dom
 let virtualDom = createElement("ul", { class: 'list' }, [
     createElement("li", { class: 'item' }, ['1']),

@@ -65,6 +65,8 @@ function dfscompare(oldTree, newTree, index) {
             newNode:newTree
         })
     }
+
+    // 将内部的补丁包放入最外层要导出的补丁包中
     if (currentPatchs.length > 0) {
         patchs[index] = currentPatchs;
     }
