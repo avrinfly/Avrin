@@ -6,17 +6,19 @@ import _ from './until.js'
 //2. 节点不一致 {type:'REPLACE',newNode:newNode}
 //3. 属性不一致 {type:'ATTRS',attrs:{class:'new-list'}}
 //4. 文本不一致 {type:'TEXT',text}
+
+let patchs = {};// 补丁包
 //当前父节点下的子节点的索引
 let globalIndex = 0;
 function diff(oldTree, newTree) {
     dfscompare(oldTree, newTree, globalIndex);
+    return patchs;
 }
 
 //遍历老树和新树
 function dfscompare(oldTree,newTree,index) {
     //存放补丁包
     let currentPatchs = [];
-    //比较typejs中的差异情况(因人而异)
     if (!newTree) {
         //新树不存在
         currentPatchs.push({
@@ -25,24 +27,43 @@ function dfscompare(oldTree,newTree,index) {
         })
     }
     else if (_.isString(oldTree)) {
-        //如果老树的节点是字符串
+        //如果老树的节点是字符串 
+        if (_.isString(newTree) && oldTree != newTree) {
+            //如果新树也为子节点，且新树不等于老树，认为是文本替换
+            currentPatchs.push({
+                'type': "TEXT",
+                text:newTree
+            })
+        }
     }
     else if (oldTree.type == newTree.type) {
         //比较属性
-        diffProps()
+        // diffProps()
+        // currentPatchs.push({
+        //     type: TYPES.ATTRS,
+        //     attr: patchAttrs
+        // })
         //比较子节点
-        diffChild()
+        diffChild(oldTree.children, newTree.children);
+    }
+    if (currentPatchs.length > 0) {
+        patchs[index] = currentPatchs;
     }
 }
 
 function diffProps() {
-
+    //比较属性值
 }
 
-function diffChild() {
-    
+function diffChild(oldChildrens,newChildrens) {
+    //比较子节点
+    oldChildrens.forEach((child, idx) => {
+        //老树的节点  新树对应索引的节点  保持当前处理的索引++
+        dfscompare(child, newChildrens[idx], ++globalIndex);//尾调用优化
+    });
 }
-
+// 先判断节点的类型 oldTree.type === newTree.type  如果一致，则表示两个节点相同，则对比其子节点
+// 再判断两个节点不一致，且新旧节点都为string，则认为其是一个文本的替换
 export {
     diff
 }

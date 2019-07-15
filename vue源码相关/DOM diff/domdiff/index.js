@@ -22,4 +22,4 @@ let virtualDom1 = createElement("ul", { class: 'lists' }, [
 console.log('虚拟dom节点',virtualDom)
 //对两个树进行比较，得到补丁
 const patchs = diff(virtualDom, virtualDom1)
-console.log(`补丁包${patchs}`);
+console.log('补丁包',patchs);
