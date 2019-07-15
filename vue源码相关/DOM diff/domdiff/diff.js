@@ -10,19 +10,22 @@ import _ from './until.js'
 let patchs = {};// 补丁包
 //当前父节点下的子节点的索引
 let globalIndex = 0;
+
 function diff(oldTree, newTree) {
     dfscompare(oldTree, newTree, globalIndex);
     return patchs;
 }
 
 //遍历老树和新树
-function dfscompare(oldTree,newTree,index) {
+function dfscompare(oldTree, newTree, index) {
+    //每个元素都有一个补丁对象
+
     //存放补丁包
     let currentPatchs = [];
     if (!newTree) {
         //新树不存在
         currentPatchs.push({
-            type: 'REMOVE',
+            type: TYPES.REMOVE,
             index
         })
     }
@@ -31,8 +34,15 @@ function dfscompare(oldTree,newTree,index) {
         if (_.isString(newTree) && oldTree != newTree) {
             //如果新树也为子节点，且新树不等于老树，认为是文本替换
             currentPatchs.push({
-                'type': "TEXT",
+                'type': TYPES.TEXT,
                 text:newTree
+            })
+        }
+        if (!_.isString(newTree)) {
+            //新树不是文本，则认为是发生了replace,将原来的文本换成了新的节点或其他
+            currentPatchs.push({
+                type: TYPES.REPLACE,
+                newNode: newTree
             })
         }
     }
@@ -62,8 +72,9 @@ function diffChild(oldChildrens,newChildrens) {
         dfscompare(child, newChildrens[idx], ++globalIndex);//尾调用优化
     });
 }
-// 先判断节点的类型 oldTree.type === newTree.type  如果一致，则表示两个节点相同，则对比其子节点
-// 再判断两个节点不一致，且新旧节点都为string，则认为其是一个文本的替换
+// 判断节点的类型 oldTree.type === newTree.type  如果一致，则表示两个节点相同，则对比其子节点
+// 判断两个节点不一致，且新旧节点都为string，则认为其是一个文本的替换
+// 判断如果newTree不存在，则认为是删除操作
 export {
     diff
 }
