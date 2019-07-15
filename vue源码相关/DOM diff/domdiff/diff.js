@@ -47,22 +47,39 @@ function dfscompare(oldTree, newTree, index) {
         }
     }
     else if (oldTree.type == newTree.type) {
-        //比较属性
-        // diffProps()
-        // currentPatchs.push({
-        //     type: TYPES.ATTRS,
-        //     attr: patchAttrs
-        // })
+        //比较props
+        let patchAttrs = diffProps(oldTree.props,newTree.props)
+        if (Object.keys(patchAttrs).length > 0) {
+            currentPatchs.push({
+                type: TYPES.ATTRS,
+                attr: patchAttrs
+            })
+        }
         //比较子节点
         diffChild(oldTree.children, newTree.children);
+    }
+    else {
+        // 新旧树type不一致
+        currentPatchs.push({
+            type: TYPES.REPLACE,
+            newNode:newTree
+        })
     }
     if (currentPatchs.length > 0) {
         patchs[index] = currentPatchs;
     }
 }
 
-function diffProps() {
+function diffProps(oldProps,newProps) {
     //比较属性值
+    //存放props补丁
+    let patchProps = {};
+    for (let key in oldProps) {
+        if (oldProps[key] !== newProps[key]) {
+            patchProps[key] = newProps[key];
+        }
+    }
+    return patchProps;
 }
 
 function diffChild(oldChildrens,newChildrens) {
