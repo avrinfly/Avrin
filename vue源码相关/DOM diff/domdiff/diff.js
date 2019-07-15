@@ -31,10 +31,10 @@ function dfscompare(oldTree, newTree, index) {
     }
     else if (_.isString(oldTree)) {
         //如果老树的节点是字符串 
-        if (_.isString(newTree) && oldTree != newTree) {
+        if (_.isString(newTree) && oldTree !== newTree) {
             //如果新树也为子节点，且新树不等于老树，认为是文本替换
             currentPatchs.push({
-                'type': TYPES.TEXT,
+                type: TYPES.TEXT,
                 text:newTree
             })
         }
@@ -76,6 +76,11 @@ function diffProps(oldProps,newProps) {
     let patchProps = {};
     for (let key in oldProps) {
         if (oldProps[key] !== newProps[key]) {
+            patchProps[key] = newProps[key];
+        }
+    }
+    for (let key in newProps) {
+        if (newProps[key] !== oldProps[key]) {
             patchProps[key] = newProps[key];
         }
     }
