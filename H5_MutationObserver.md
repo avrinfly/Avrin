@@ -28,3 +28,36 @@ document.addEventListener('DOMNodeInserted',function() {
 document下的所有DOM添加操作都会触发DOMNodeInserted方法，这时就会出现无限循环调用DOMNodeInserted方法，导致浏览器崩溃。
 
 另外还有MutationEvent是事件机制，因此会有一般事件都存在的捕获和冒泡阶段，如果此时正处在捕获和冒泡阶段又对DOM进行了操作，会拖慢浏览器的运行。
+
+另一点是MutationEvent事件机制是同步的，也就是说每次DOM修改都会触发，修改几次就触发几次，严重影响并会降低浏览器的运行，严重时甚至会导致线程崩溃
+```
+<div id='test'></div>
+```
+```
+let i = 0;
+test.addEventListener('DOMNodeInserted', function() {
+    i++
+});
+test.appendChild(document.createTextNode('1'));
+console.log(i);    // 1
+test.appendChild(document.createTextNode('2'));
+console.log(i);    // 2
+test.appendChild(document.createTextNode('3'));
+console.log(i);    // 3
+```
+
+再看另一个例子：
+```
+<div id='test'>
+    <span id='child'>Text</span>
+</div>
+```
+```
+test.addEventListener('DOMNodeInserted',function(e) {
+    console.log('1');    // 1
+});
+span.appendChild(document.createTextNode('other text'));
+```
+span元素中添加节点触发test中的DOMNodeInserted事件，如果只想观察test的变化，不想观察其内部的子节点的变化，此时你应该在DOMNodeInserted事件中进行过滤，把对子节点的操作忽略掉，但是这无疑增加了很多成本和风险，还增添了操作的复杂性。
+
+以上就是MutationEvent存在的问题，为了解决这些问题，就有了MutationObserver
