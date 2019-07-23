@@ -17,3 +17,14 @@ MutationEvent的兼容性：
 3. IE、Edge以及Firefox浏览器下不支持**DOMNodeInsertedIntoDocument**和**DOMNodeRemovedFromDocument**事件
 
 MutationEvent中的所有事件都被设计成无法取消，如果可以取消MutationEvent事件会导致现有的DOM接口无法对文档进行操作，比如：appendChild，remove等添加、删除节点的DOM操作。
+
+MutationEvent最被人诟病的就是性能以及安全问题。例如：
+```
+document.addEventListener('DOMNodeInserted',function() {
+    let newEl = document.createElement('div');
+    document.body.appendChild(newEl);
+})
+```
+document下的所有DOM添加操作都会触发DOMNodeInserted方法，这时就会出现无限循环调用DOMNodeInserted方法，导致浏览器崩溃。
+
+另外还有MutationEvent是事件机制，因此会有一般事件都存在的捕获和冒泡阶段，如果此时正处在捕获和冒泡阶段又对DOM进行了操作，会拖慢浏览器的运行。
