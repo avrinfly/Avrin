@@ -61,3 +61,35 @@ span.appendChild(document.createTextNode('other text'));
 span元素中添加节点触发test中的DOMNodeInserted事件，如果只想观察test的变化，不想观察其内部的子节点的变化，此时你应该在DOMNodeInserted事件中进行过滤，把对子节点的操作忽略掉，但是这无疑增加了很多成本和风险，还增添了操作的复杂性。
 
 以上就是MutationEvent存在的问题，为了解决这些问题，就有了MutationObserver
+
+首先应了解MutationObserver的浏览器兼容性：
+![MutationObserver的浏览器兼容性](https://www.flygoing.cn/images/2019-7-24/MutationObserver之于各浏览器的兼容性.png)
+
+可以看得出来MutationObserver在IE中最低要求也是IE11。这也是浏览器版本发展的趋势，应该说MutationObserver支持所有的现代浏览器。如果你的网站必须要求兼容至IE8以上、IE11以下，那么你需要使用MutationEvent来兼容。（IE8以下怎么办？凉拌）。
+
+#### 构造函数 MutationObserver()  
+
+[MutationObserver()](https://developer.mozilla.org/zh-CN/docs/Web/API/MutationObserver/MutationObserver)创建并返回一个新的MutationObserver，它会在指定的DOM发生变化时调用，接收一个**callback**参数，用来处理节点变化的回调函数，该回调函数拥有两个参数：描述所有被触发改动的[MutationRecord](https://developer.mozilla.org/zh-CN/docs/Web/API/MutationRecord)对象数组：==record==，调用该函数的MutationObserver对象：==observer==。
+```
+let observer = new MutationObserver(function(record,observer)){
+    // some code
+};
+```
+返回一个新的、包含监听DOM变化回调函数的==MutationObserver==对象
+
+下面这个例子简单创建了一个新的MutationObserver，监视一个节点及全部子节点树的添加、移除元素，以及任何属性变化的事件。
+```
+function callback(mutationList, observer) {
+    mutationList.forEach((mutation) => {
+        switch(mutation.type) {
+            case 'childList':
+                /* 从树上添加或移除一个或更多的子节点；参考mutation.addedNodes 和mutation.removeNodes */
+                break;
+            case 'attributes':
+                /* mutation.target 中某个节点的一个属性值被更改；该属性名称在mutation.attributeName中，该属性之前的值为 mutation.oldValue */
+                break;
+        }
+    });
+}
+```
+当观察者observer发现更改匹配到观察请求中指定的配置项时，callback方法会被调用；调用observe()开始观察DOM。
