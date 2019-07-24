@@ -93,3 +93,23 @@ function callback(mutationList, observer) {
 }
 ```
 当观察者observer发现更改匹配到观察请求中指定的配置项时，callback方法会被调用；调用observe()开始观察DOM。
+
+使用[mutation.type](https://developer.mozilla.org/zh-CN/docs/Web/API/MutationRecord/type)获取发生的变动类别（无论是子节点的变动，还是节点属性的变动）。
+
+##### 创建并使用observer
+使用代码设置一个观察进程：
+```
+let targetNode = document.querySelector('#test');
+let observerOptions = {
+    childList: true, // 观察目标子节点的变化，添加或删除
+    attributes: true, // 观察属性变动
+    subtree: true //默认是false，设置为true后可观察后代节点
+}
+let observer = new MutationObserver(callback);
+observer.observe(targetNode, observerOptions);
+```
+使用ID->test来获取目标节点树。observerOptions中设定了观察，通过设定==childList==和==attributes==为true来获取所需信息。
+
+当observer实例化时，指定callback()函数。之后指定目标节点与记录选项，然后就可以开始观察observe()指定的DOM节点。
+
+从此时起直到调用disconnect(),每次以targetNode为根节点的DOM树添加或移除元素时，以及这些元素的任意属性改变时，callback()都会被调用。
