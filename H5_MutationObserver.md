@@ -77,6 +77,12 @@ let observer = new MutationObserver(function(record,observer)){
 ```
 返回一个新的、包含监听DOM变化回调函数的==MutationObserver==对象
 
+#### 方法
+MutationObserver对象有三个方法，分别如下：
+1. **observer**：设置目标，接收俩参数，target：观察目标， options：观察项
+2. **disconnect**：组织观察者观察任何的改变
+3. **takeRecords**：清空记录队列并返回里边的内容
+
 下面这个例子简单创建了一个新的MutationObserver，监视一个节点及全部子节点树的添加、移除元素，以及任何属性变化的事件。
 ```
 function callback(mutationList, observer) {
@@ -114,8 +120,3 @@ observer.observe(targetNode, observerOptions);
 
 从此时起直到调用disconnect(),每次以targetNode为根节点的DOM树添加或移除元素时，以及这些元素的任意属性改变时，callback()都会被调用。
 
-#### 方法
-MutationObserver对象有三个方法，分别如下：
-1. **observer**：设置目标，接收俩参数，target：观察目标， options：观察项
-2. **disconnect**：组织观察者观察任何的改变
-3. **takeRecords**：清空记录队列并返回里边的内容
