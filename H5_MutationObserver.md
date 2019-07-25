@@ -77,24 +77,6 @@ let observer = new MutationObserver(function(record,observer)){
 ```
 返回一个新的、包含监听DOM变化回调函数的==MutationObserver==对象
 
-#### 方法
-MutationObserver对象有三个方法，分别如下：
-1. **observe**：设置目标，接收两个参数，target：观察目标， options：观察项
-2. **disconnect**：组织观察者观察任何的改变
-3. **takeRecords**：清空记录队列并返回里边的内容
-
-关于observe方法中options参数有几个选项：
-1. childList：默认为false，设置为true，可观察目标子节点的变化；比如添加或删除目标子节点，不包括修改子节点以及子节点后代的变化
-2. attributes：默认为false，设置为true，可观察目标属性的改变
-3. characterData：默认为false，设置为true，可观察目标数据的改变
-4. subtree：默认是false，设置为true后可观察后代节点
-5. attributeOldValue：如果设置为true或省略，则相当于设置为true，表示需要记录改变前的目标属性值，设置了attributeOldValue可以不用设置attributes
-6. characterDataOldValue：如果设置为true或省略，则相当于设置为true，表示需要记录改变之前的目标数据，设置了characterDataOldValue可以不用设置characterData
-7. attributeFilter：如果不需要观察所有的属性改变，并且已设置attribute为true，那么设置一个需要观察属性的本地名称（不需要命名空间）的列表
-
-下表描述了MutationObserver选项与MutationEvent之间的对应关系：
-
-
 下面这个例子简单创建了一个新的MutationObserver，监视一个节点及全部子节点树的添加、移除元素，以及任何属性变化的事件。
 ```
 function callback(mutationList, observer) {
@@ -132,3 +114,29 @@ observer.observe(targetNode, observerOptions);
 
 从此时起直到调用disconnect(),每次以targetNode为根节点的DOM树添加或移除元素时，以及这些元素的任意属性改变时，callback()都会被调用。
 
+#### 方法
+MutationObserver对象有三个方法，分别如下：
+1. **observe**：设置目标，接收两个参数，target：观察目标， options：观察项
+2. **disconnect**：组织观察者观察任何的改变
+3. **takeRecords**：清空记录队列并返回里边的内容
+
+关于observe方法中options参数有几个选项：
+1. childList：默认为false，设置为true，可观察目标子节点的变化；比如添加或删除目标子节点，不包括修改子节点以及子节点后代的变化
+2. attributes：默认为false，设置为true，可观察目标属性的改变
+3. characterData：默认为false，设置为true，可观察目标数据的改变
+4. subtree：默认是false，设置为true后可观察后代节点
+5. attributeOldValue：如果设置为true或省略，则相当于设置为true，表示需要记录改变前的目标属性值，设置了attributeOldValue可以不用设置attributes
+6. characterDataOldValue：如果设置为true或省略，则相当于设置为true，表示需要记录改变之前的目标数据，设置了characterDataOldValue可以不用设置characterData
+7. attributeFilter：如果不需要观察所有的属性改变，并且已设置attribute为true，那么设置一个需要观察属性的本地名称（不需要命名空间）的列表
+
+下表描述了MutationEvent选项与MutationObserver之间的对应关系：
+
+MutationEvent | MutationObserver
+---|---
+DOMNodeInserted | { childList: true, subtree: true }
+DOMNodeRemoved | { childList: true, subtree: true }
+DOMSubtreeModified | { childList: true, subtree: true }
+DOMAttrModified | { attributes: true, subtree: true }
+DOMCharacterDataModified | { characterData: true, subtree: true }
+
+从上表可以看出来相比MutationEvent，MutationObserver极大地增加了灵活性，可以设置不同的、选项来满足对目标的观察
