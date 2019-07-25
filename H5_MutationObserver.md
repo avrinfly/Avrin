@@ -27,7 +27,7 @@ document.addEventListener('DOMNodeInserted',function() {
 ```
 document下的所有DOM添加操作都会触发DOMNodeInserted方法，这时就会出现无限循环调用DOMNodeInserted方法，导致浏览器崩溃。
 
-另外还有MutationEvent是事件机制，因此会有一般事件都存在的捕获和冒泡阶段，如果此时正处在捕获和冒泡阶段又对DOM进行了操作，会拖慢浏览器的运行。
+还有就是MutationEvent是事件机制，因此会有一般事件都存在的捕获和冒泡阶段，如果此时正处在捕获和冒泡阶段又对DOM进行了操作，会拖慢浏览器的运行。
 
 另一点是MutationEvent事件机制是同步的，也就是说每次DOM修改都会触发，修改几次就触发几次，严重影响并会降低浏览器的运行，严重时甚至会导致线程崩溃
 ```
@@ -67,7 +67,7 @@ span元素中添加节点触发test中的DOMNodeInserted事件，如果只想观
 
 可以看得出来MutationObserver在IE中最低要求也是IE11。这也是浏览器版本发展的趋势，应该说MutationObserver支持所有的现代浏览器。如果你的网站必须要求兼容至IE8以上、IE11以下，那么你需要使用MutationEvent来兼容。（IE8以下怎么办？凉拌）。
 
-#### 构造函数 MutationObserver()  
+#### 构造函数 MutationObserver()
 
 [MutationObserver()](https://developer.mozilla.org/zh-CN/docs/Web/API/MutationObserver/MutationObserver)创建并返回一个新的MutationObserver，它会在指定的DOM发生变化时调用，接收一个**callback**参数，用来处理节点变化的回调函数，该回调函数拥有两个参数：描述所有被触发改动的[MutationRecord](https://developer.mozilla.org/zh-CN/docs/Web/API/MutationRecord)对象数组：==record==，调用该函数的MutationObserver对象：==observer==。
 ```
@@ -79,9 +79,21 @@ let observer = new MutationObserver(function(record,observer)){
 
 #### 方法
 MutationObserver对象有三个方法，分别如下：
-1. **observer**：设置目标，接收俩参数，target：观察目标， options：观察项
+1. **observe**：设置目标，接收两个参数，target：观察目标， options：观察项
 2. **disconnect**：组织观察者观察任何的改变
 3. **takeRecords**：清空记录队列并返回里边的内容
+
+关于observe方法中options参数有几个选项：
+1. childList：默认为false，设置为true，可观察目标子节点的变化；比如添加或删除目标子节点，不包括修改子节点以及子节点后代的变化
+2. attributes：默认为false，设置为true，可观察目标属性的改变
+3. characterData：默认为false，设置为true，可观察目标数据的改变
+4. subtree：默认是false，设置为true后可观察后代节点
+5. attributeOldValue：如果设置为true或省略，则相当于设置为true，表示需要记录改变前的目标属性值，设置了attributeOldValue可以不用设置attributes
+6. characterDataOldValue：如果设置为true或省略，则相当于设置为true，表示需要记录改变之前的目标数据，设置了characterDataOldValue可以不用设置characterData
+7. attributeFilter：如果不需要观察所有的属性改变，并且已设置attribute为true，那么设置一个需要观察属性的本地名称（不需要命名空间）的列表
+
+下表描述了MutationObserver选项与MutationEvent之间的对应关系：
+
 
 下面这个例子简单创建了一个新的MutationObserver，监视一个节点及全部子节点树的添加、移除元素，以及任何属性变化的事件。
 ```
