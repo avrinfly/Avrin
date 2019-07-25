@@ -99,6 +99,14 @@ function callback(mutationList, observer) {
 ##### 创建并使用observer
 使用代码设置一个观察进程：
 ```
+<div id='test'>
+    <p>
+        第一个子节点
+        <span>test的后代</span>
+    </p>
+</div>
+```
+```
 let targetNode = document.querySelector('#test');
 let observerOptions = {
     childList: true, // 观察目标子节点的变化，添加或删除
@@ -121,13 +129,13 @@ MutationObserver对象有三个方法，分别如下：
 3. **takeRecords**：清空记录队列并返回里边的内容
 
 关于observe方法中options参数有几个选项：
-1. childList：默认为false，设置为true，可观察目标子节点的变化；比如添加或删除目标子节点，不包括修改子节点以及子节点后代的变化
-2. attributes：默认为false，设置为true，可观察目标属性的改变
-3. characterData：默认为false，设置为true，可观察目标数据的改变
-4. subtree：默认是false，设置为true后可观察后代节点
-5. attributeOldValue：如果设置为true或省略，则相当于设置为true，表示需要记录改变前的目标属性值，设置了attributeOldValue可以不用设置attributes
-6. characterDataOldValue：如果设置为true或省略，则相当于设置为true，表示需要记录改变之前的目标数据，设置了characterDataOldValue可以不用设置characterData
-7. attributeFilter：如果不需要观察所有的属性改变，并且已设置attribute为true，那么设置一个需要观察属性的本地名称（不需要命名空间）的列表
+1. **childList**：默认为false，设置为true，可观察目标子节点的变化；比如添加或删除目标子节点，不包括修改子节点以及子节点后代的变化
+2. **attributes**：默认为false，设置为true，可观察目标属性的改变
+3. **characterData**：默认为false，设置为true，可观察目标数据的改变
+4. **subtree**：默认是false，设置为true后可观察后代节点
+5. **attributeOldValue**：如果设置为true或省略，则相当于设置为true，表示需要记录改变前的目标属性值，设置了attributeOldValue可以不用设置attributes
+6. **characterDataOldValue**：如果设置为true或省略，则相当于设置为true，表示需要记录改变之前的目标数据，设置了characterDataOldValue可以不用设置characterData
+7. **attributeFilter**：如果不需要观察所有的属性改变，并且已设置attribute为true，那么设置一个需要观察属性的本地名称（不需要命名空间）的列表
 
 下表描述了MutationEvent选项与MutationObserver之间的对应关系：
 
@@ -140,3 +148,17 @@ DOMAttrModified | { attributes: true, subtree: true }
 DOMCharacterDataModified | { characterData: true, subtree: true }
 
 从上表可以看出来相比MutationEvent，MutationObserver极大地增加了灵活性，可以设置不同的、选项来满足对目标的观察
+
+这这里，我们考虑一个问题，callback回调是否为异步，以上面DOM结构为例：
+```
+let target = document.querySelector('#test');
+let i = 0;
+let observer = new MutationObserver(function(record, observer){
+    i++; 
+});
+observer.observe(target, { childList: true });
+target.appendChild(document.createTextNode('1'));
+target.appendChild(document.createTextNode('2'));
+console.log(i);   // 1
+```
+由此可知，callback回调是异步操作，只有在全部同步操作完成之后才会调用callback。
