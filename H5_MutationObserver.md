@@ -162,3 +162,19 @@ target.appendChild(document.createTextNode('2'));
 console.log(i);   // 1
 ```
 由此可知，callback回调是异步操作，只有在全部同步操作完成之后才会调用callback。
+
+##### 注意
+我们要注意的是：characterData选项，是用来观察CharacterData类型节点的，只有改变节点数据时才能观察到，如果是新增或者删除是观察不到的，另外如果对不是CharacterData类型的节点改变也是观察不到的，比如：
+```
+let target = document.querySelector('#test');
+let observer = new MutationObserver(function(callback);
+let observerOptions = {
+    characterData: true,
+    subtree: true
+}
+observer.observe(target, observerOptions);
+target.childNode[0].textContent = '改变Text节点';   //能观察到
+target.childNode[1].textContent = '改变P元素内容';   //不能观察到
+target.appendChild(document.createNode('新增的节点'));        //不能观察到
+target.childNode[0].remove();    //删除节点也观察不到
+```
