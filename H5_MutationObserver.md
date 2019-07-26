@@ -164,17 +164,30 @@ console.log(i);   // 1
 由此可知，callback回调是异步操作，只有在全部同步操作完成之后才会调用callback。
 
 ##### 注意
-我们要注意的是：characterData选项，是用来观察CharacterData类型节点的，只有改变节点数据时才能观察到，如果是新增或者删除是观察不到的，另外如果对不是CharacterData类型的节点改变也是观察不到的，比如：
+我们要注意的是：
+1. characterData选项，是用来观察CharacterData类型节点的，只有改变节点数据时才能观察到，如果是新增或者删除是观察不到的，另外如果对不是CharacterData类型的节点改变也是观察不到的，比如：
 ```
 let target = document.querySelector('#test');
 let observer = new MutationObserver(function(callback);
 let observerOptions = {
     characterData: true,
     subtree: true
-}
+};
 observer.observe(target, observerOptions);
 target.childNode[0].textContent = '改变Text节点';   //能观察到
 target.childNode[1].textContent = '改变P元素内容';   //不能观察到
 target.appendChild(document.createNode('新增的节点'));        //不能观察到
 target.childNode[0].remove();    //删除节点也观察不到
 ```
+2. 还要关注一个特别有用的选项attributeFilter，这个选项主要用来筛选需要观察的属性，比如L你只想观察目标style属性的变化，就可以做如下设置：
+```
+let observer = new MutationObserver(function(callback);
+let observerOptions = {
+    attributeFilter: ['style'],
+    subtree: true
+};
+target.style = 'color: red'; //可以观察到
+target.setAttribute('class'); // 添加class属性，无法观察到
+```
+4. disconnect方法用来阻止观察，当你不再想观察目标节点的变化时可调用observer.disconnect()方法来取消观察。
+5. takeRecords方法用来取出记录队列里的记录。它有一个明显的作用：比如你对一个节点的操作不想马上有响应，过段时间再响应等
