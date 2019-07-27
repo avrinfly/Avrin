@@ -189,5 +189,19 @@ let observerOptions = {
 target.style = 'color: red'; //可以观察到
 target.setAttribute('class'); // 添加class属性，无法观察到
 ```
-4. disconnect方法用来阻止观察，当你不再想观察目标节点的变化时可调用observer.disconnect()方法来取消观察。
-5. takeRecords方法用来取出记录队列里的记录。它有一个明显的作用：比如你对一个节点的操作不想马上有响应，过段时间再响应等
+4. [disconnect](https://developer.mozilla.org/zh-CN/docs/Web/API/MutationObserver/disconnect)方法，阻止 MutationObserver 实例继续接收的通知，直到再次调用其observe()方法，该观察者对象包含的回调函数都不会再被调用。当你不再想观察目标节点的变化时可调用observer.disconnect()方法来取消观察。
+5. [takeRecords](https://developer.mozilla.org/zh-CN/docs/Web/API/MutationObserver/takeRecords)方法从MutationObserver的通知队列中删除所有待处理的通知，并将它们返回到MutationRecord对象的新Array中，简言之是用来取出记录队列里的记录。它有一个明显的作用：比如你对一个节点的操作不想马上有响应，过段时间再响应等
+```
+let target = document.querySelector('#test');
+let observer = new MutationObserver(function(callback));
+let observerOptions = {
+    childList: true;
+}
+observer.observe(target, observerOptions);
+target.appendChild(document.createTextNode('新增text节点'));
+let records = observer.takeRecords();  //此时record保存了改变记录列表
+//当调用takeRecords方法，记录队列会被清空，因此不会触发MutationObserver中的callback回调函数
+target.appendChild(document.createTextNode('records后新增text节点'));
+observer.disconnect();  // 停止对target的观察
+// MutationObserver回调函数中的records中只有一个记录--records后新增的text节点
+```
