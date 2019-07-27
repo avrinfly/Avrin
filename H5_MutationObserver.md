@@ -205,3 +205,19 @@ target.appendChild(document.createTextNode('records后新增text节点'));
 observer.disconnect();  // 停止对target的观察
 // MutationObserver回调函数中的records中只有一个记录--records后新增的text节点
 ```
+##### MutationRecord
+变动记录中的属性如下：
+1. **type**：如果是属性变化，返回“attributes”，如果是CharacterData节点（text节点、Comment节点）变化，返回“characterData”，节点树变化返回“childList”
+2. **target**：返回影响变化的节点
+3. **addedNodeds**：返回添加的节点列表
+4. **removeedNodes**：返回删除的节点列表
+5. **previousSibling**：返回分别添加或删除的节点的上一个兄弟节点，否则返回null
+6. **nextSibling**：返回分别添加或删除的节点的下一个兄弟节点，否则返回null
+7. **attributeName**：返回已更改属性的名称空间，否则返回null
+8. **attributeNameSpace**：返回已更改属性的名称空间，否则返回null
+9. **OldValue**：返回值取决于type属性。对于“attributes”，它是更改之前的属性值；对于“characterData”，它是改变之前节点的数据；对于“childLIst”，它是null
+
+其中==type==、==target==这两个属性不管是哪种观察方式都会有返回值，其他属性返回值和观察方法有关。比如：只有当attributeOldValue或者characterDataOldValue为true时OldValue才会有返回值，只有改变属性时，attributeName才会有返回值。
+参考文章：
+[了解HTML5中的MutationObserver](https://segmentfault.com/a/1190000012787829)
+[MutationObserver - Web API 接口参考 | MDN](https://developer.mozilla.org/zh-CN/docs/Web/API/MutationObserver)
