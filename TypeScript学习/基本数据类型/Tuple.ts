@@ -8,3 +8,10 @@ x = [1];// error: initialize it incorrectly
 
 x = ['iven', 1]; // ok
 alert(x);
+
+//访问具有已知索引的元素时，将检索正确的类型
+console.log(x[0].substring(1)); //ven
+console.log(x[1].substring(1)); //Error, 'number' does not have 'substring'
+
+//访问已知索引集之外的元素会失败，并显示错误：
+console.log(x[3]); // Error: Property '3' does not exist on type '[string, number]'
