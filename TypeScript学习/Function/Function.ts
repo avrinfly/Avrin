@@ -4,7 +4,7 @@
  * @Github: https://github.com/avrinfly
  * @Date: 2019-08-18 17:50:26
  * @LastEditors: hetengfei
- * @LastEditTime: 2019-08-19 23:32:31
+ * @LastEditTime: 2019-08-20 02:39:19
  */
 //JavaScript中函数的两种样子：
 //命名函数
@@ -118,3 +118,55 @@ function buildName(firstName: string, ...restOfname: string[]) {
 }
 let employeeName = buildName('iven', 'ime', 'linda', 'lucas');// ok return "iven ime linda lucas";
 //可变参数也被称为无限数量的可选参数。通过restOfname传递参数时，你可以传递多个
+
+//lambads和this关键字
+//看一个例子：
+let people = {
+    name: ['iven', 'ime', 'lucas', 'linda'],
+    getName: function () {
+        return function () {
+            let i = Math.floor(Math.random() * 4);
+            return {
+                n: this.name[i]
+            }
+        }
+    }
+}
+let myName = people.getName();
+alert('名字:' + myName().n);
+
+//以上代码有问题能看出来吗？
+//this关键字指向的是getName函数，而gatName函数中没有name数字，所以最后输入的是undefined
+
+//如何去修改呢？
+//其实很简单，将return的函数改为箭头函数即可，因为箭头函数的this指向它的父级
+//严格来说：箭头函数捕获this创建函数的位置而不是调用它的位置
+let people = {
+    name: ['iven', 'ime', 'lucas', 'linda'],
+    getName: function () {
+        return ()=> {
+            let i = Math.floor(Math.random() * 4);
+            return {
+                n: this.name[i]
+            }
+        }
+    }
+}
+let myName = people.getName();
+alert('名字:' + myName().n);
+
+
+
+//函数的重载
+function getAttr(name: string): string;
+function getAttr(age: number): number;
+function getAttr(nameOrAge: any): any{
+    if (nameOrAge && typeof nameOrAge === 'string') {
+        alert('姓名');
+    }
+    else {
+        alert('年龄');
+    }
+}
+getAttr('hello ts'); //姓名
+getAttr(10); // 年龄
