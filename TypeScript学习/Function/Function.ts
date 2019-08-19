@@ -4,7 +4,7 @@
  * @Github: https://github.com/avrinfly
  * @Date: 2019-08-18 17:50:26
  * @LastEditors: hetengfei
- * @LastEditTime: 2019-08-19 23:11:49
+ * @LastEditTime: 2019-08-19 23:32:31
  */
 //JavaScript中函数的两种样子：
 //命名函数
@@ -105,3 +105,16 @@ let result1 = buildName('iven');//error 原因是：iven相当于只修改了fir
 let result2 = buildName(undefined, 'ime');//ok return "linda ime";
 //当然了，传两个参数是肯定没问题的
 let result3 = buildName('iven', 'ime'); //just right return "iven ime"
+
+//可变参数（Rest Parameters）
+// 必须、可选和默认参数都有一个共同点：它们一次只讨论或修改一个参数。
+//如果我们希望将多个参数作为一个数组来使用，或者如果我们不知道函数有多少个参数，
+//在JavaScript中，可以使用argument在每个函数体内可见的变量直接使用参数
+//那么在TypeScript中，我们可以将这些参数收集在一个变量(restOfname)里：
+function buildName(firstName: string, ...restOfname: string[]) {
+    //这就是可变参数的写法，...变量名:类型[]
+    //需要注意的是restOfname里的值都是string类型的
+    return firstName + '' + restOfname.join(' ');
+}
+let employeeName = buildName('iven', 'ime', 'linda', 'lucas');// ok return "iven ime linda lucas";
+//可变参数也被称为无限数量的可选参数。通过restOfname传递参数时，你可以传递多个
