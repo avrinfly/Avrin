@@ -4,7 +4,7 @@
  * @Github: https://github.com/avrinfly
  * @Date: 2019-08-18 17:50:26
  * @LastEditors: hetengfei
- * @LastEditTime: 2019-08-19 14:47:43
+ * @LastEditTime: 2019-08-19 23:11:49
  */
 //JavaScript中函数的两种样子：
 //命名函数
@@ -71,4 +71,37 @@ let result2 = buildName('iven', 'ime', 'linda'); //error too many parameters
 let result3 = buildName('iven', 'ime'); // just right
 //任何可选参数必须遵循必需的参数。如果我们想让fristName是可选的而不是lastName，我们需要改变函数中参数的顺序，将firstName的最后一个放在列表中。
 
-//在JavaScript中，有个很让人头痛的事情是
+//在JavaScript中，有个很让人头痛的事情是如果某个参数没有传值的话我们需要这么写
+function test(x) {
+    x = x || 'hello';
+};
+
+//在ts中，我们可以设置一个值，如果用户没有提供参数，或者用户传入的值为undefined，就分配参数。
+//这些被称为默认初始化参数，看下面的例子：
+function buildName(firstName: string, lastName = 'ime') {
+    return firstName + '' + lastName;
+}
+let result1 = buildName('iven'); // return "iven ime";
+let result2 = buildName('iven', undefined); //return "iven ime"
+let result3 = buildName('iven', 'ime', 'linda');//error too more parameters
+let result4 = buildName('iven', 'linda');//just right return "iven linda"
+
+//在所有必须参数之后的默认初始化参数也可被视为可选参数。就像可选参数一样，在调用他们各自函数的时候可以省略。
+//这意味着可选参数和尾随默认参数在其类型中共享共性，比如下面的两个函数
+function buildName(firstName: string, lastName?: string) {
+    // to do
+}
+function buildName(firstName: string, lastName = 'linda') {
+    //to do
+}
+//分享相同的类型(firstName: string, lastName?: string) => string。默认值lastName在类型中消失，只留下参数是可选的这一事实。
+
+//要注意的是：如果默认初始化参数在必填参数之前，那么我们需要显示传递undefined来获取默认初始化值，例如下面的例子：
+function buildName(firstName = 'linda', lastName: string) {
+    return firstName + '' + lastName;
+}
+let result1 = buildName('iven');//error 原因是：iven相当于只修改了firstName的值，而lastName是必填参数
+//如果我们想保留默认参数，又不报错，可以通过下面的写法实现：
+let result2 = buildName(undefined, 'ime');//ok return "linda ime";
+//当然了，传两个参数是肯定没问题的
+let result3 = buildName('iven', 'ime'); //just right return "iven ime"
