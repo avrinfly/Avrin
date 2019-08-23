@@ -4,7 +4,7 @@
  * @Github: https://github.com/avrinfly
  * @Date: 2019-08-21 00:30:33
  * @LastEditors: hetengfei
- * @LastEditTime: 2019-08-24 01:36:50
+ * @LastEditTime: 2019-08-24 03:10:47
  */
 //在JavaScript中我们使用函数和基于原型的继承来构建可重用的组件，对于我们来说，使用面向对象的方法更加舒服。
 //从ECMAScript 2015(ES6)开始，我们可以使用面向对象的基于类的方法构建我们的应用程序。
@@ -33,7 +33,7 @@ class Person {
         this.age = age;
     }
     alertPerson() {
-        console.log(this);
+        console.log(this); //Person{name:iven,age:18}
         return this.name + ':' + this.age;
     }
 }
@@ -77,3 +77,39 @@ alert(s.tell());
 //上面是通过赋值的方式进行传递继承的
 //我们也可以通过构造函数的方式来代替赋值操作
 //派生类通常称为子类，基类通常称为超类
+
+//看一个更复杂的例子：
+class Animal {
+    name: string;
+    constructor(theName: string) {
+        this.name = theName;
+    }
+    move(distanceInMeters: number = 0) {
+        console.log(`${this.name} moved ${distanceInMeters}m.`);
+    }
+}
+
+class Snake extends Animal {
+    constructor(name:string) {
+        super(name);
+    }
+    move(distanceInMeters = 5) {
+        console.log('爬行ing...');
+        super.move(distanceInMeters);
+    }
+}
+
+class Horse extends Animal {
+    constructor(name:string) {
+        super(name);
+    }
+    move(distanceInMeters = 45) {
+        console.log('奔跑ing...');
+        super.move(distanceInMeters);
+    }
+}
+let sam = new Snake('巨蛇');
+let tom = new Horse('骏马');
+
+sam.move();
+tom.move(34);

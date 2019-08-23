@@ -4,7 +4,7 @@
  * @Github: https://github.com/avrinfly
  * @Date: 2019-08-21 00:30:33
  * @LastEditors: hetengfei
- * @LastEditTime: 2019-08-24 01:35:47
+ * @LastEditTime: 2019-08-24 03:10:47
  */
 //在JavaScript中我们使用函数和基于原型的继承来构建可重用的组件，对于我们来说，使用面向对象的方法更加舒服。
 //从ECMAScript 2015(ES6)开始，我们可以使用面向对象的基于类的方法构建我们的应用程序。
@@ -43,7 +43,7 @@ var Person = /** @class */ (function () {
         this.age = age;
     }
     Person.prototype.alertPerson = function () {
-        console.log(this);
+        console.log(this); //Person{name:iven,age:18}
         return this.name + ':' + this.age;
     };
     return Person;
@@ -86,3 +86,43 @@ var s = new Student('自学成才');
 alert(s.tell());
 //上面是通过赋值的方式进行传递继承的
 //我们也可以通过构造函数的方式来代替赋值操作
+//派生类通常称为子类，基类通常称为超类
+//看一个更复杂的例子：
+var Animal = /** @class */ (function () {
+    function Animal(theName) {
+        this.name = theName;
+    }
+    Animal.prototype.move = function (distanceInMeters) {
+        if (distanceInMeters === void 0) { distanceInMeters = 0; }
+        console.log(this.name + " moved " + distanceInMeters + "m.");
+    };
+    return Animal;
+}());
+var Snake = /** @class */ (function (_super) {
+    __extends(Snake, _super);
+    function Snake(name) {
+        return _super.call(this, name) || this;
+    }
+    Snake.prototype.move = function (distanceInMeters) {
+        if (distanceInMeters === void 0) { distanceInMeters = 5; }
+        console.log('爬行ing...');
+        _super.prototype.move.call(this, distanceInMeters);
+    };
+    return Snake;
+}(Animal));
+var Horse = /** @class */ (function (_super) {
+    __extends(Horse, _super);
+    function Horse(name) {
+        return _super.call(this, name) || this;
+    }
+    Horse.prototype.move = function (distanceInMeters) {
+        if (distanceInMeters === void 0) { distanceInMeters = 45; }
+        console.log('奔跑ing...');
+        _super.prototype.move.call(this, distanceInMeters);
+    };
+    return Horse;
+}(Animal));
+var sam = new Snake('巨蛇');
+var tom = new Horse('骏马');
+sam.move();
+tom.move(34);
