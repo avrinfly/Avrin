@@ -4,7 +4,7 @@
  * @Github: https://github.com/avrinfly
  * @Date: 2019-08-21 00:30:33
  * @LastEditors: hetengfei
- * @LastEditTime: 2019-08-24 03:10:47
+ * @LastEditTime: 2019-08-24 17:32:27
  */
 //在JavaScript中我们使用函数和基于原型的继承来构建可重用的组件，对于我们来说，使用面向对象的方法更加舒服。
 //从ECMAScript 2015(ES6)开始，我们可以使用面向对象的基于类的方法构建我们的应用程序。
@@ -109,7 +109,18 @@ class Horse extends Animal {
     }
 }
 let sam = new Snake('巨蛇');
-let tom = new Horse('骏马');
+let tom: Animal = new Horse('骏马');
 
 sam.move();
 tom.move(34);
+//结果为：
+// 爬行ing...
+// 巨蛇 moved 5m.
+// 奔跑ing...
+// 骏马 moved 34m.
+//我们看到使用extends创建了Animal类的两个子类：Snake和Horse
+//与之前的实例的区别是：每个包含构造函数的子类必须调用super()来执行父类的构造函数。这是TypeScript强制执行的重要规则。
+//该示例还说明了如何在子类中使用父类的方法，这里两个子类Snake和Horse都创建了一个move方法，并重写了父类Animal中的move方法,具体结合每个类的功能重写
+//应注意的是：tom声明为Animal的原因是：它的值是使用Horse的，调用tom.move(34)时会调用Horse中的重写方法
+
+//类的访问修饰符见ModelFiles.ts
