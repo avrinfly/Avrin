@@ -4,7 +4,7 @@
  * @Github: https://github.com/avrinfly
  * @Date: 2019-08-21 00:30:33
  * @LastEditors: hetengfei
- * @LastEditTime: 2019-08-24 03:27:04
+ * @LastEditTime: 2019-08-26 16:38:54
  */
 //在JavaScript中我们使用函数和基于原型的继承来构建可重用的组件，对于我们来说，使用面向对象的方法更加舒服。
 //从ECMAScript 2015(ES6)开始，我们可以使用面向对象的基于类的方法构建我们的应用程序。
@@ -135,3 +135,4 @@ tom.move(34);
 //与之前的实例的区别是：每个包含构造函数的子类必须调用super()来执行父类的构造函数。这是TypeScript强制执行的重要规则。
 //该示例还说明了如何在子类中使用父类的方法，这里两个子类Snake和Horse都创建了一个move方法，并重写了父类Animal中的move方法,具体结合每个类的功能重写
 //应注意的是：tom声明为Animal的原因是：它的值是使用Horse的，调用tom.move(34)时会调用Horse中的重写方法
+
