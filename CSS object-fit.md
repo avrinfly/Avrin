@@ -1,3 +1,11 @@
+<!--
+ * @Description: 
+ * @Author: hetengfei
+ * @Github: https://github.com/avrinfly
+ * @Date: 2019-10-16 00:00:54
+ * @LastEditors: hetengfei
+ * @LastEditTime: 2019-10-16 00:00:54
+ -->
 ## 业务背景：
 前两天在做业务的时候，突然发现，里边有很多的图片需要去处理，要适应很多不同尺寸的图片，虽然很头痛，做了很多种情况的兼容
 ## 后续思考：
@@ -46,4 +54,6 @@
 如果我们想有一个对比的话，可以看下图
 ![object-fit属性对比图](https://www.flygoing.cn/images/2019-10-12/object-fit属性对比图.png)
 
+以上为不同属性在不同宽高比下(具体来说是2:3和3:2两种宽高比下)的表现
 
+具体内容可查看[这里](https://www.flygoing.cn/views/object-fit-test.html)
