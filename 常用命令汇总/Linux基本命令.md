@@ -1,3 +1,11 @@
+<!--
+ * @Description: Linux基本命令汇总
+ * @Author: hetengfei
+ * @Github: https://github.com/avrinfly
+ * @Date: 2019-10-21 18:34:19
+ * @LastEditors: hetengfei
+ * @LastEditTime: 2019-10-21 18:34:45
+ -->
 - **ls** --- 得到当前目录内容
 
 
@@ -51,3 +59,5 @@
     若rz命令不存在，则需通过```yum -y install  lrzsz```命令安装
 
     通过命令```rpm -qa lrzsz```查看是否安装成功
+
+- **date** 显示系统日期
