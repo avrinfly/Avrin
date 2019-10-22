@@ -4,7 +4,7 @@
  * @Github: https://github.com/avrinfly
  * @Date: 2019-10-21 18:34:19
  * @LastEditors: hetengfei
- * @LastEditTime: 2019-10-21 18:34:45
+ * @LastEditTime: 2019-10-22 23:11:31
  -->
 - **ls** --- 得到当前目录内容
 
@@ -61,3 +61,13 @@
     通过命令```rpm -qa lrzsz```查看是否安装成功
 
 - **date** 显示系统日期
+- ## 文件搜索
+    如果遇到不确定的可以用通配符*来代替
+    1. **find / -name xx** 在根目录下查找xx文件
+    2. **find / -name xx*** 在根目录下查找xx开头的文件(注意是文件)
+    
+        如果是图片或者其他格式呢？
+
+        ```find / -name vue*.png```  在根系统下查找vue开头的png图片
+    3. **find / -user user1** 在根目录下搜索属于用户user1的文件和目录
+    4. **find /home/user -name \*.bin** 在目录"/home/user"中搜索带有".bin"结尾的文件
