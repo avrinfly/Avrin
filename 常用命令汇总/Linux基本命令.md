@@ -4,7 +4,7 @@
  * @Github: https://github.com/avrinfly
  * @Date: 2019-10-21 18:34:19
  * @LastEditors: hetengfei
- * @LastEditTime: 2019-10-22 23:29:23
+ * @LastEditTime: 2019-10-23 07:42:38
  -->
 - **ls** --- 得到当前目录内容
 
@@ -75,3 +75,5 @@
     6. **find /usr/bin -type f -atime +100** 在目录"usr/bin"中搜索在过去100天内未被使用过的执行文件
     7. **whereis xxx** 显示一个二进制文件、源码或者应用程序的位置
     8. **which xxx** 显示一个二进制文件或可执行文件的完成路径
+    9. **find / -xdev -name \*.rpm** 在根目录下搜索以".rpm"结尾的文件，忽略光驱、
+    10. **locate \*.ps** 寻找以".ps"结尾的文件，前提要先运行**updatedb**命令
