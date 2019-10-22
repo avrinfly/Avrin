@@ -4,7 +4,7 @@
  * @Github: https://github.com/avrinfly
  * @Date: 2019-10-21 18:34:19
  * @LastEditors: hetengfei
- * @LastEditTime: 2019-10-22 23:22:09
+ * @LastEditTime: 2019-10-22 23:29:23
  -->
 - **ls** --- 得到当前目录内容
 
@@ -73,3 +73,5 @@
     4. **find /home/user -name \*.bin** 在目录"/home/user"中搜索带有".bin"结尾的文件
     5. **find /usr/bin -type f -mtime -10** 在目录"/home/user"中搜索在10天内被创建或者修改过的文件
     6. **find /usr/bin -type f -atime +100** 在目录"usr/bin"中搜索在过去100天内未被使用过的执行文件
+    7. **whereis xxx** 显示一个二进制文件、源码或者应用程序的位置
+    8. **which xxx** 显示一个二进制文件或可执行文件的完成路径
