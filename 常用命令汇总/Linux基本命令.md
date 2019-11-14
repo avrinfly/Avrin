@@ -4,7 +4,7 @@
  * @Github: https://github.com/avrinfly
  * @Date: 2019-10-21 18:34:19
  * @LastEditors: hetengfei
- * @LastEditTime: 2019-11-14 23:57:42
+ * @LastEditTime: 2019-11-14 23:58:24
  -->
  ## 操作系统
 - **arch** 显示机器的处理器架构
@@ -13,7 +13,10 @@
 - **dmidecode -q** 显示硬件系统部件（SMBIOS/DMI）
 - **cat /proc/cpuinfo** 显示CPU的内存信息
 - **cat /proc/version** 显示内核版本
-
+- **lspci -tv** 罗列 PCI设备
+- **lsusb -tv** 显示USB设备
+- **cal 200x** 显示200x年的日历表
+- **clock -w** 将时间修改保存到BIOS
 
 
 - **ls** --- 得到当前目录内容
