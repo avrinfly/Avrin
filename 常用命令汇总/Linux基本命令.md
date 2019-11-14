@@ -4,12 +4,16 @@
  * @Github: https://github.com/avrinfly
  * @Date: 2019-10-21 18:34:19
  * @LastEditors: hetengfei
- * @LastEditTime: 2019-11-12 23:59:35
+ * @LastEditTime: 2019-11-14 23:57:42
  -->
  ## 操作系统
 - **arch** 显示机器的处理器架构
 - **uname -m** 显示机器的处理器架构
 - **uname -r** 显示正在使用的内核版本
+- **dmidecode -q** 显示硬件系统部件（SMBIOS/DMI）
+- **cat /proc/cpuinfo** 显示CPU的内存信息
+- **cat /proc/version** 显示内核版本
+
 
 
 - **ls** --- 得到当前目录内容
