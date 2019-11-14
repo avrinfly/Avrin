@@ -4,7 +4,7 @@
  * @Github: https://github.com/avrinfly
  * @Date: 2019-10-21 18:34:19
  * @LastEditors: hetengfei
- * @LastEditTime: 2019-11-14 23:58:24
+ * @LastEditTime: 2019-11-15 00:02:36
  -->
  ## 操作系统
 - **arch** 显示机器的处理器架构
@@ -17,6 +17,10 @@
 - **lsusb -tv** 显示USB设备
 - **cal 200x** 显示200x年的日历表
 - **clock -w** 将时间修改保存到BIOS
+
+## 关机（系统的关机、重启以及登出）
+- **shutdown -h now** 关闭系统
+- **init 0** 关闭系统
 
 
 - **ls** --- 得到当前目录内容
