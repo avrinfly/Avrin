@@ -4,7 +4,7 @@
  * @Github: https://github.com/avrinfly
  * @Date: 2019-10-21 18:34:19
  * @LastEditors: hetengfei
- * @LastEditTime: 2019-11-15 00:02:36
+ * @LastEditTime: 2019-11-17 23:17:41
  -->
  ## 操作系统
 - **arch** 显示机器的处理器架构
@@ -21,6 +21,12 @@
 ## 关机（系统的关机、重启以及登出）
 - **shutdown -h now** 关闭系统
 - **init 0** 关闭系统
+- **telinit 0** 关闭系统
+- **shutdown -h hours:minutes** 按预定时间关闭系统
+- **shutdown -c** 取消按预定时间关闭系统
+- **shutdown -r now** 重启
+- **reboot** 重启
+- **logout** 注销
 
 
 - **ls** --- 得到当前目录内容
