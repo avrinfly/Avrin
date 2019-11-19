@@ -4,7 +4,7 @@
  * @Github: https://github.com/avrinfly
  * @Date: 2019-10-21 18:34:19
  * @LastEditors: hetengfei
- * @LastEditTime: 2019-11-17 23:17:41
+ * @LastEditTime: 2019-11-19 23:38:00
  -->
  ## 操作系统
 - **arch** 显示机器的处理器架构
@@ -84,19 +84,19 @@
     通过命令```rpm -qa lrzsz```查看是否安装成功
 
 - **date** 显示系统日期
-- ## 文件搜索
-    如果遇到不确定的可以用通配符*来代替
-    1. **find / -name xx** 在根目录下查找xx文件
-    2. **find / -name xx*** 在根目录下查找xx开头的文件(注意是文件)
-    
-        如果是图片或者其他格式呢？
+## 文件搜索
+如果遇到不确定的可以用通配符*来代替
+1. **find / -name xx** 在根目录下查找xx文件
+2. **find / -name xx*** 在根目录下查找xx开头的文件(注意是文件)
 
-        ```find / -name vue*.png```  在根系统下查找vue开头的png图片
-    3. **find / -user user1** 在根目录下搜索属于用户user1的文件和目录
-    4. **find /home/user -name \*.bin** 在目录"/home/user"中搜索带有".bin"结尾的文件
-    5. **find /usr/bin -type f -mtime -10** 在目录"/home/user"中搜索在10天内被创建或者修改过的文件
-    6. **find /usr/bin -type f -atime +100** 在目录"usr/bin"中搜索在过去100天内未被使用过的执行文件
-    7. **whereis xxx** 显示一个二进制文件、源码或者应用程序的位置
-    8. **which xxx** 显示一个二进制文件或可执行文件的完成路径
-    9. **find / -xdev -name \*.rpm** 在根目录下搜索以".rpm"结尾的文件，忽略光驱、
-    10. **locate \*.ps** 寻找以".ps"结尾的文件，前提要先运行**updatedb**命令
+    如果是图片或者其他格式呢？
+
+    ```find / -name vue*.png```  在根系统下查找vue开头的png图片
+3. **find / -user user1** 在根目录下搜索属于用户user1的文件和目录
+4. **find /home/user -name \*.bin** 在目录"/home/user"中搜索带有".bin"结尾的文件
+5. **find /usr/bin -type f -mtime -10** 在目录"/home/user"中搜索在10天内被创建或者修改过的文件
+6. **find /usr/bin -type f -atime +100** 在目录"usr/bin"中搜索在过去100天内未被使用过的执行文件
+7. **whereis xxx** 显示一个二进制文件、源码或者应用程序的位置
+8. **which xxx** 显示一个二进制文件或可执行文件的完成路径
+9. **find / -xdev -name \*.rpm** 在根目录下搜索以".rpm"结尾的文件，忽略光驱、
+10. **locate \*.ps** 寻找以".ps"结尾的文件，前提要先运行**updatedb**命令
