@@ -4,7 +4,7 @@
  * @Github: https://github.com/avrinfly
  * @Date: 2019-10-21 18:34:19
  * @LastEditors: hetengfei
- * @LastEditTime: 2019-12-23 23:32:20
+ * @LastEditTime: 2019-12-23 23:40:16
  -->
  ## 操作系统
 - **arch** 显示机器的处理器架构
@@ -108,3 +108,11 @@
 4. **gzip file1** 压缩一个叫做'file1'的文件
 5. **gzip -9 file1** 最大程度压缩
 6. **rar a file1.rar test_file** 创建一个叫'file1.rar'的包
+7. **rar a file1.rar file1 file2 dir1** 同时压缩'file1'、'file2'以及'dir1'
+8. **rar x file1.rar** 解压rar包
+9. **unrar x file1.rar** 解压rar包
+10. **tar -cvf archive.tar file1** 创建一个非压缩的tarball
+11. **tar -cvf archive.tar file1 file2 dir1** 创建一个包含'file1'、'fil2'和'dir1'的档案文件
+12. **tar -tf archive.tar** 显示一个包里的内容
+13. **tar -xvf archive.tar** 释放一个包
+14. **tar -xvf archive.tar -C /tmp** 将压缩包释放到/tmp目录下
