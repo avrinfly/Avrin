@@ -4,7 +4,7 @@
  * @Github: https://github.com/avrinfly
  * @Date: 2019-10-21 18:34:19
  * @LastEditors: hetengfei
- * @LastEditTime: 2019-11-19 23:38:00
+ * @LastEditTime: 2019-12-23 23:22:23
  -->
  ## 操作系统
 - **arch** 显示机器的处理器架构
@@ -100,3 +100,11 @@
 8. **which xxx** 显示一个二进制文件或可执行文件的完成路径
 9. **find / -xdev -name \*.rpm** 在根目录下搜索以".rpm"结尾的文件，忽略光驱、
 10. **locate \*.ps** 寻找以".ps"结尾的文件，前提要先运行**updatedb**命令
+
+## 打包和压缩文件
+- **bunzip2 file1.bz2** 解压一个叫做'file1.bz2'的文件
+- **bzip2 file1** 压缩一个叫做'file1'的文件
+- **gunzip file1.gz** 解压一个叫做'file1.gz'的文件
+- **gzip file1** 压缩一个叫做'file1'的文件
+- **gzip -9 file1** 最大程度压缩
+- **rar a file1.rar test_file** 创建一个叫'file1.rar'的包
