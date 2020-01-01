@@ -122,3 +122,4 @@
 - **tar -zxvf archive.tar.gz** 解压一个gzip格式的压缩包
 - **zip file1.zip file1** 创建一个zip格式的压缩包
 - **zip -r file1.zip file1 file2 dir1** 将file1、file2和dir1同时压缩成一个zip格式的压缩包
+- **unzip file1.zip** 解压一个zip格式的压缩包
