@@ -4,7 +4,7 @@
  * @Github: https://github.com/avrinfly
  * @Date: 2019-10-21 18:34:19
  * @LastEditors: hetengfei
- * @LastEditTime: 2019-12-30 00:54:08
+ * @LastEditTime: 2020-01-01 11:35:49
  -->
  ## 操作系统
 - **arch** 显示机器的处理器架构
@@ -120,3 +120,5 @@
 - **tar -jxvf archive.tar.bz2** 解压一个bzip2格式的压缩包
 - **tar -cvfz archive.tar.gz dir1** 创建一个gzip格式的压缩包
 - **tar -zxvf archive.tar.gz** 解压一个gzip格式的压缩包
+- **zip file1.zip file1** 创建一个zip格式的压缩包
+- **zip -r file1.zip file1 file2 dir1** 将file1、file2和dir1同时压缩成一个zip格式的压缩包
