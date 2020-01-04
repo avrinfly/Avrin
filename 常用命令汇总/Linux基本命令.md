@@ -4,7 +4,7 @@
  * @Github: https://github.com/avrinfly
  * @Date: 2019-10-21 18:34:19
  * @LastEditors: hetengfei
- * @LastEditTime: 2020-01-01 11:35:49
+ * @LastEditTime: 2020-01-04 23:36:29
  -->
  ## 操作系统
 - **arch** 显示机器的处理器架构
@@ -123,3 +123,6 @@
 - **zip file1.zip file1** 创建一个zip格式的压缩包
 - **zip -r file1.zip file1 file2 dir1** 将file1、file2和dir1同时压缩成一个zip格式的压缩包
 - **unzip file1.zip** 解压一个zip格式的压缩包
+
+## 文件的权限 - 使用 “+” 设置权限，使用 “-” 用于取消
+- **ls -lh** 显示权限（简写为ll）
