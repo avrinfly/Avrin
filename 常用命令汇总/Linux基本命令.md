@@ -4,7 +4,7 @@
  * @Github: https://github.com/avrinfly
  * @Date: 2019-10-21 18:34:19
  * @LastEditors: hetengfei
- * @LastEditTime: 2020-01-04 23:36:29
+ * @LastEditTime: 2020-01-05 23:41:15
  -->
  ## 操作系统
 - **arch** 显示机器的处理器架构
@@ -126,3 +126,5 @@
 
 ## 文件的权限 - 使用 “+” 设置权限，使用 “-” 用于取消
 - **ls -lh** 显示权限（简写为ll）
+- **ls /tmp | pr -T5 -W$COLUMNS** 将终端划分为5栏显示
+- **chmod ugo+rwx directory 1** 设置目录的所有人(u)、群组(g)以及其他人(o)以读(r)写(w)和执行(x)的权限
